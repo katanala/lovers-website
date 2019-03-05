@@ -1,3 +1,5 @@
+### 项目说明
+
 参考地址（address）：http://www.fengyunxiao.cn
 
 备用地址（address）：http://t.cn/Ef6v2Uw
@@ -36,7 +38,7 @@
 
 问：如何运行？
 
-答：运行入口类中的main方法，src\main\java\cn\fengyunxiao\nest\NestApplication.java
+答：运行前请确保配置文件和数据库配置正确，运行入口类中的main方法，src\main\java\cn\fengyunxiao\nest\NestApplication.java
 
 
 问：如何访问？
@@ -47,5 +49,5 @@
 问：如何使用自己的域名SSL证书？
 
 答：需要将 src\main\resources\www.fengyunxiao.cn.jks 换成自己域名的SSL证书，
-同时修改 src\main\resources\application.yml 中的 server: ssl: key-* 的参数的值
+同时修改 src\main\resources\application.yml 中的 server: ssl: key-* 的参数值
 
