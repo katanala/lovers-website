@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+.main {padding-bottom: 20px;}
+.bg-pink {background-color: #FCC;}
+.text-pink {color: #F66;}
+.footer {color: #AAA;padding: 40px 0;}
+.footer h4 {text-align: center;color: #FFF;}
+.footer ul li, footer p {text-align: center;font-size: 1em;}
+.footer h4 {font-size: 1.4rem;}
+.footer a {color: #AAA}
+.footer-top .about>div {height: 110px;margin-bottom: 10px;}
+.text-center {width: 100%;}
+.jumbotron_linear {border-radius: 0;background-color: #F99;margin-bottom: 0;
+    background: linear-gradient(to bottom right, #F66, #FFF);}

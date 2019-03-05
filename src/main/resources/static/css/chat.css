@@ -1,0 +1,248 @@
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+	touch-callout: none;
+	user-select: none;
+}
+
+.mui-bar-nav {
+	background-color: #F99;
+}
+
+.mui-content {
+	height: 100%;
+	padding: 44px 0px 50px 0px;
+	overflow: auto;
+	background-color: #FDD;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+footer {
+	position: fixed;
+	width: 100%;
+	height: 50px;
+	min-height: 50px;
+	border-top: solid 1px #bbb;
+	left: 0px;
+	bottom: 0px;
+	overflow: hidden;
+	padding: 0px 50px;
+	background-color: #fafafa;
+}
+
+.footer-left {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	left: 0px;
+	bottom: 0px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100%;
+	padding: 12px 4px;
+}
+
+.footer-right {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	right: 0px;
+	bottom: 0px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100%;
+	padding: 12px 5px;
+	display: inline-block;
+}
+
+.footer-center {
+	height: 100%;
+	padding: 5px 0px;
+}
+
+.footer-center [class*=input] {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+}
+
+.footer-center .input-text {
+	background: #fff;
+	border: solid 1px #ddd;
+	padding: 10px !important;
+	font-size: 16px !important;
+	line-height: 18px !important;
+	font-family: verdana !important;
+	overflow: hidden;
+}
+
+.footer-center .input-sound {
+	background-color: #eee;
+}
+
+#msg-list {
+	height: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.msg-item {
+	padding: 8px;
+	clear: both;
+}
+
+.msg-item .mui-item-clear {
+	clear: both;
+}
+
+.msg-item .msg-user {
+	width: 38px;
+	height: 38px;
+	display: inline-block;
+	background: #fff;
+	border-radius: 12px;
+	vertical-align: top;
+	text-align: center;
+	float: left;
+	color: #ddd;
+}
+
+.msg-item .msg-user-img {
+	width: 38px;
+	height: 38px;
+	display: inline-block;
+	border-radius: 12px;
+	vertical-align: top;
+	text-align: center;
+	float: left;
+	color: #ddd;
+}
+
+.msg-item .msg-content {
+	display: inline-block;
+	border-radius: 5px;
+	border: solid 1px #d3d3d3;
+	background-color: #FFFFFF;
+	color: #333;
+	padding: 8px;
+	vertical-align: top;
+	font-size: 15px;
+	position: relative;
+	margin: 0px 8px;
+	max-width: 75%;
+	min-width: 35px;
+	float: left;
+}
+
+.msg-item .msg-content .msg-content-inner {
+	overflow-x: hidden;
+}
+
+.msg-item .msg-content .msg-content-arrow {
+	position: absolute;
+	border: solid 1px #d3d3d3;
+	border-right: none;
+	border-top: none;
+	background-color: #FFFFFF;
+	width: 10px;
+	height: 10px;
+	left: -5px;
+	top: 12px;
+	-webkit-transform: rotateZ(45deg);
+	transform: rotateZ(45deg);
+}
+
+.msg-item-self .msg-user,
+.msg-item-self .msg-content {
+	float: right;
+}
+
+.msg-item-self .msg-content .msg-content-arrow {
+	left: auto;
+	right: -5px;
+	-webkit-transform: rotateZ(225deg);
+	transform: rotateZ(225deg);
+}
+
+.msg-item-self .msg-content,
+.msg-item-self .msg-content .msg-content-arrow {
+	background-color: #4CD964;
+	color: #fff;
+	border-color: #2AC845;
+}
+
+/* 游客 */
+.msg-item-other {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 100%;
+}
+.msg-item-other .msg-content {
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
+.msg-item-other .msg-content .msg-content-arrow {
+	display: none;
+}
+.msg-item-other .msg-content,
+.msg-item-other .msg-content .msg-content-arrow {
+	background-color: #eee;
+	border-color: #bbb;
+}
+/* 机器人 */
+.msg-item-robot .msg-content,
+.msg-item-robot .msg-content .msg-content-arrow {
+	color: #00FFCC;
+	background-color: #666;
+	border-color: #444;
+}
+
+footer .mui-icon {
+	color: #000;
+}
+
+footer .mui-icon:active {
+	color: #007AFF !important;
+}
+
+footer .mui-icon-paperplane:before {
+	content: "发送";
+}
+
+footer .mui-icon-paperplane {
+	font-size: 16px;
+	word-break: keep-all;
+	line-height: 100%;
+	padding-top: 6px;
+	color: rgba(0, 135, 250, 1);
+}
+
+@-webkit-keyframes spin {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+@keyframes spin {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+#h {
+	background: #fff;
+	border: solid 1px #ddd;
+	padding: 10px !important;
+	font-size: 16px !important;
+	font-family: verdana !important;
+	line-height: 18px !important;
+	overflow: visible;
+	position: absolute;
+	left: -1000px;
+	right: 0px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+

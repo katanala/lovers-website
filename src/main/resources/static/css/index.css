@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.jumbotron {background-color: #F99;background: linear-gradient(to bottom right, #F66, #FFF);margin-bottom: 0;border-radius: 0;}
+.jumbotron h1 {color: #333;font-size:2.8rem;margin-top: 1rem;}
+.jumbotron h3 {margin-top: 2.5rem;margin-bottom: 1.5rem;font-weight: 600;color: #333;}
+
+.jumbotron-days {padding-top: 2.6rem;padding-bottom: 1.2rem;background-image: url(../image/index/swirl.png);}
+.jumbotron-days h1 {font-weight: 600;}
+.jumbotron-days .time div {display: inline-block;background: #FBB;text-align: center;font-weight: 600;margin: 1.4rem 0.5rem;padding: 0.5rem 0.7rem;border-radius: 0.3rem;}
+
+.projects-header {font-weight: 600;color: #F93;margin: 3.2rem 0 3rem 0px;text-align: center;}
+
+.card {margin-bottom: 2rem;}
+.card-body {padding-top: 0.5rem;padding-bottom: 0.5rem;}
+.btn-group {width: 100%;}
+.btn-group button {width: 33.33%;}
+.card-letter .title {font-size: 0.9em;}
+.card-letter .time {color: #AAA;font-size: 0.8em;}
+.card-letter .zan {font-size: 1.1em;cursor: pointer;}
+.card-letter hr {margin-top: 0.4rem;}
+.card-letter {margin-bottom: 25px;color: #333;}
+
+textarea {resize: none;}
+.nickname-and-button {margin-top: 1.1rem;}
+.style-old {white-space: pre-wrap;word-wrap: break-word;text-align: center;margin-top: 1.9rem;margin-bottom: 1.4rem;}
+
+#tags {height:220px;position:relative;font-size:14px;color:#333;text-align:center;}
+#tags a{position:absolute;top:0px;left:0px;color:#333;text-decoration:none;margin:0 10px 15px 0;line-height:18px;text-align:center;padding:2px 6px;display:inline-block;border-radius:5px;}
+#tags a.tagc1{background:#9966CC;color:#fff;}
+#tags a.tagc2{background:#FF6699;color:#fff;}
+#tags a.tagc3{background:#FFCC33;color:#fff;}
+#tags a.tagc4{background:#00CC33;color:#fff;}
+#tags a:hover{color:#fff;background:#0099ff;}

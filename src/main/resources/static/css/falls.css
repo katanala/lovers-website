@@ -1,0 +1,123 @@
+/**整体**/
+.bigcontainer {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: #FDC2FC;
+    padding: 20px 0 0 0
+}
+
+/**关闭区**/
+.close_div {
+    margin: 0 auto;
+    background: #fff;
+    text-align: right;
+    padding: 10px 0 0 0;
+}
+
+/**图片区**/
+.content {
+    background: #fff;
+    margin: 0 auto;
+    position: relative;
+}
+
+.content .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 105
+}
+
+.content span {
+    position: absolute;
+    left: 45%;
+    top: 40%;
+}
+
+/**左右箭头**/
+.content .left, .content .right {
+    position: absolute;
+    top: 0;
+    z-index: 110;
+}
+
+/**底部区**/
+.bottom {
+    height: 30px;
+    background: #fff;
+    margin: 2rem auto;
+    overflow: hidden;
+    line-height: 30px;
+}
+
+/**提示框弹出层**/
+.pop {
+    z-index: 1000;
+}
+
+.msg_style {
+    float: left;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    font-size: 18px;
+    padding: 0 0 0 10px;
+    font-weight: bold;
+    font-family: '宋体';
+}
+
+.pop_style {
+    position: fixed;
+    top: 20%;
+    left: 42%;
+    border-radius: 16px;
+    padding: 10px 25px 10px 20px;
+    background: #0D85C5;
+}
+
+.clearfix {
+    clear: both;
+}
+
+#wrapper {
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+#container {
+    position: relative;
+    margin: 0 auto 10px;
+    padding-bottom: 10px;
+}
+
+.grid {
+    width: 285px;
+    min-height: 20px;
+    padding: 3px;
+    background: #fff;
+    margin: 8px 8px 8px 0;
+    font-size: 12px;
+    float: left;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+.grid .imgholder img {
+    max-width: 100%;
+    background: #ccc;
+    display: block;
+    cursor: pointer;
+}
+
+.load_more {
+    text-align: center;
+}
+
+.btn-success {
+    width: 75%;
+}

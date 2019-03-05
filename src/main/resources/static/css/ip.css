@@ -1,0 +1,35 @@
+.jumbotron {
+	border-radius: 0;
+	background-color: #F99;
+	background: linear-gradient(to bottom right, #F66, #FFF);
+	margin-bottom: 0;
+}
+
+.main {
+	padding-top: 3.5rem;
+}
+
+/* 表格分红背景色 */
+.table-pink {
+	margin-bottom: 3rem;
+	background-color: #FCC;
+}
+.table thead th {
+    border-bottom: #F55;
+}
+.table-pink td, .table-pink th {
+	border: 1.4px solid #F55;
+}
+.table-pink:hover>td, .table-pink:hover>th {
+	background-color: #F55
+}
+.table-pink.table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(255, 255, 255, .15)
+}
+.table-pink.table-hover tbody tr:hover {
+	background-color: rgba(255, 255, 255, .25)
+}
+
+.page-item.active .page-link{color:#fff;background-color:#FAA;border-color:#F88}
+.page-link{color:#F55;background-color:#fff;border:1px solid #FCC}
+.page-link:hover{color:#F55;background-color:#FEE;border-color:#F88}

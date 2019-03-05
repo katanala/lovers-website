@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zscfyx?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  freemarker:
+    cache: true
+    settings:
+      number_format: 0.######
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  mail:
+    port: 465
+    host: smtp.ym.163.com
+    username: xxx@fengyunxiao.cn
+    password: xxxxx
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+server:
+  port: 443
+  ssl:
+    key-store: classpath:www.fengyunxiao.cn.jks
+    key-store-password: e9301yduv1i
+    key-store-type: JKS
+    key-alias: www.fengyunxiao.cn
+  compression:
+    enabled: true
+    min-response-size: 512
+  tomcat:
+    max-threads: 150
+  max-http-header-size: 102400
+
+mybatis:
+  type-aliases-package: cn.fengyunxiao.nest.entity
+  # mapper-locations: mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false
+
+logging:
+  level:
+    root: info
