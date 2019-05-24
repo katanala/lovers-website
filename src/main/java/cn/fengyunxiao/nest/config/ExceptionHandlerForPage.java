@@ -14,9 +14,10 @@ public class ExceptionHandlerForPage {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public JsonResult<String> resolveException(Exception e) {
-        logger.info("Exception：" + e.getMessage());
+        logger.warn("ExceptionMessage：" + e.getMessage());
+        logger.warn("ExceptionCause：" + e.getCause());
         JsonResult<String> result = new JsonResult<>();
-        return result.error(-1, "未知错误："+e.getMessage());
+        return result.error(-1, "thinkphp遇到错误，请查看日志");
     }
 
 }
