@@ -9,7 +9,6 @@ public class Ip {
 	private String region;
 	private String city;
 	private String isp;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp curtime;
 	
 	public Integer getIid() {
