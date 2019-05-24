@@ -43,6 +43,9 @@ public class ViewController {
         return "pages/falls";
     }
 
+    @RequestMapping("/timeline")
+    public String timeline() { return "pages/timeline"; }
+
     @GetMapping("/ip")
     public String ip(ModelMap map) {
         map.put("ipCount", Config.ipCount);
@@ -86,6 +89,9 @@ public class ViewController {
             blog.setBid(0);
             blog.setTitle("没有该标题");
             blog.setContent("没有该内容");
+            blog.setKeyword("没有关键字");
+            blog.setUrl("");
+            blog.setRank((byte)(0));
             blog.setModtime(new Timestamp(System.currentTimeMillis()));
         }
 
