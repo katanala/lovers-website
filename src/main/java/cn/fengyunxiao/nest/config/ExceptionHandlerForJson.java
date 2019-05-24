@@ -18,7 +18,8 @@ public class ExceptionHandlerForJson {
     @ResponseBody
     @ExceptionHandler(value = MultipartException.class)
     public Map<String, Object> resolveFileUploadException(MultipartException e) {
-        logger.info("MultipartException："+e.getMessage());
+        logger.warn("MultipartMessage："+e.getMessage());
+        logger.warn("MultipartgetCause："+e.getCause());
         Map<String, Object> map = new HashMap<>();
         map.put("success", 0);
         map.put("message", "上传错误：图片大小超过指定值。建议10M以内");
@@ -28,9 +29,10 @@ public class ExceptionHandlerForJson {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public JsonResult<String> resolveException(Exception e) {
-        logger.info("Exception：" + e.getMessage());
+        logger.warn("ExceptionMessage：" + e.getMessage());
+        logger.warn("ExceptionCause：" + e.getCause());
         JsonResult<String> result = new JsonResult<>();
-        return result.error(-1, "未知错误："+e.getMessage());
+        return result.error(-1, "thinkphp遇到错误，请查看日志");
     }
 
 }
