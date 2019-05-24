@@ -1,7 +1,11 @@
 package cn.fengyunxiao.nest.controller;
 
 import cn.fengyunxiao.nest.config.Config;
+import cn.fengyunxiao.nest.config.CrawlerCsdn;
+import cn.fengyunxiao.nest.config.CrawlerDytt;
+import cn.fengyunxiao.nest.entity.Image;
 import cn.fengyunxiao.nest.service.AdminService;
+import cn.fengyunxiao.nest.util.GoogleAuthenticator;
 import cn.fengyunxiao.nest.util.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -34,7 +39,15 @@ public class AdminController {
     public void setSession(HttpSession session) { this.session = session; }
 
     @RequestMapping({"/index.html","/", ""})
-    public String index() {
+    public String index(HttpServletRequest request) {
+        String servletName = request.getServerName();
+        logger.info("servletName："+servletName);
+        // 本地测试，不需要登陆
+        if (servletName.equals("127.0.0.1") || servletName.equals("localhost")) {
+            session.setAttribute("admin", Config.TOKEN_DO_LOGIN);
+            return "admin/index";
+        }
+
         if (!Config.TOKEN_DO_LOGIN.equals(session.getAttribute("admin"))) {
             return "redirect:/";
         }
@@ -57,18 +70,41 @@ public class AdminController {
     }
 
     @RequestMapping("/image")
-    public String image() {
+    public String image(ModelMap map, Integer page) {
         if (!Config.TOKEN_DO_LOGIN.equals(session.getAttribute("admin"))) {
             return "redirect:/";
         }
+
+        if (page == null || page<1) {
+            page = 1;
+        }
+
+        int total = adminService.countImage();
+        int number = Config.PAGE_NUMBER;
+
+        int allpage = total % number == 0 ? total/number : total/number+1;
+        if (allpage < 1) { allpage = 1; }
+        List<Image> images = adminService.listImage(page, number);
+
+        map.put("total", total);
+        map.put("allpage", allpage);
+        map.put("curpage", page);
+        map.put("images", images);
+        map.put("ossUrl", Config.OSS_URL_PREFIX);
         return "admin/image";
     }
 
     @RequestMapping("/doLogin")
-    public String doLogin(String tokenLogin, String veri, String phone) {
+    public String doLogin(String tokenLogin, String veri, String phone, Long google) {
         String veri1 = (String)session.getAttribute("veri");
         if (!Config.TOKEN_DO_LOGIN.equals(tokenLogin) || !Config.TOKEN_PHONE.equals(phone)
-            || veri == null || !veri.equalsIgnoreCase(veri1)) {
+            || veri == null || !veri.equalsIgnoreCase(veri1) || google == null) {
+            return "redirect:/";
+        }
+
+        GoogleAuthenticator ga = new GoogleAuthenticator();
+        boolean r = ga.check_code(Config.TOKEN_GOOGLE_KEY, google, System.currentTimeMillis());
+        if (!r) {
             return "redirect:/";
         }
 
@@ -108,5 +144,31 @@ public class AdminController {
     @ResponseBody
     public Map<String, Object> uploadImage(@RequestParam("editormd-image-file") MultipartFile file, Integer bid) {
         return adminService.uploadImage(file, bid, session.getAttribute("admin"));
+    }
+
+    @RequestMapping("/deleteImage")
+    @ResponseBody
+    public String deleteImage(Integer iid) {
+        return adminService.deleteImage(iid, session.getAttribute("admin"));
+    }
+
+    @RequestMapping("/crawler")
+    @ResponseBody
+    public String crawler(String kind) {
+        if (!Config.TOKEN_DO_LOGIN.equals(session.getAttribute("admin"))) {
+            return "请先登录";
+        }
+
+        if (kind == null) {
+            return "类型错误";
+        } else if (kind.equals("csdn")) {
+            adminService.crawler("https://blog.csdn.net/", CrawlerCsdn.class);
+        } else if (kind.equals("dytt")) {
+            adminService.crawler("http://www.ygdy8.net/", CrawlerDytt.class);
+        } else {
+            return "类型错误";
+        }
+
+        return "正在爬取中，请查看日志";
     }
 }
