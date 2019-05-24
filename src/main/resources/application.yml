@@ -3,7 +3,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/zscfyx?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/zscfyx?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
   freemarker:
     cache: true
     settings:
@@ -12,11 +12,14 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 20MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   mail:
     port: 465
     host: smtp.ym.163.com
-    username: xxx@fengyunxiao.cn
-    password: xxxxx
+    username: xxxxx@xxxxx.com
+    password: xxxxxxxx
     default-encoding: UTF-8
     properties:
       mail:
@@ -35,7 +38,7 @@ server:
   port: 443
   ssl:
     key-store: classpath:www.fengyunxiao.cn.jks
-    key-store-password: e9301yduv1i
+    key-store-password: xxxxxxxxx
     key-store-type: JKS
     key-alias: www.fengyunxiao.cn
   compression:
@@ -47,7 +50,7 @@ server:
 
 mybatis:
   type-aliases-package: cn.fengyunxiao.nest.entity
-  # mapper-locations: mapper/*Mapper.xml
+  #mapper-locations: mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: false
 
