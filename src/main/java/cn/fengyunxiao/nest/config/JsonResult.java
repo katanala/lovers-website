@@ -1,5 +1,8 @@
 package cn.fengyunxiao.nest.config;
 
+/**
+ *  json 返回的结构
+ */
 public class JsonResult<T> {
     // code=0表示成功，返回数据data。code!=0，表示错误，返回错误信息msg
     private int code;
