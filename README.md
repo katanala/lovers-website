@@ -17,6 +17,9 @@
 框架（framework）： SpringBoot2，SpringMVC，Mybatis，Freemarker，Websocket。
 
 
+集成开发环境（IDE）：IDEA
+
+
 模块（modular）：聊天（chat），博客（blog），留言（message），相册（album），故事（story），ip 统计（ip statistics），邮件通知（mail notification）....
 
 ---
