@@ -21,7 +21,7 @@ public interface BlogDao {
     public Blog get(@Param("bid") int bid);
 
     // 查找最后一个草稿
-    @Select("select bid from blog where rank<0 order by bid desc limit 1")
+    @Select("select bid from blog where `rank`<0 order by bid desc limit 1")
     public Integer getLastDraft();
 
     @Select("SELECT t1.bid,t1.title FROM blog AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(bid)-#{number} FROM blog)) AS bid) AS t2 WHERE t1.bid >= t2.bid ORDER BY t1.bid ASC LIMIT #{number}")
