@@ -23,9 +23,7 @@ public class ChatSocketController {
     private Session session;
 
     @Autowired
-    public void setChatService(ChatService chatService) {
-        ChatSocketController.chatService = chatService;
-    }
+    public void setChatService(ChatService chatService) { ChatSocketController.chatService = chatService; }
 
     public ChatSocketController() {
         logger.info("创建聊天用户");
