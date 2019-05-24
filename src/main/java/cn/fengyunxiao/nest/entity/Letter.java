@@ -9,7 +9,6 @@ public class Letter {
 	private String nickname;
 	private String content;
 	private String ip;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp pubtime;
 	
 	public Integer getLid() {
@@ -48,5 +47,5 @@ public class Letter {
 	public void setPubtime(Timestamp pubtime) {
 		this.pubtime = pubtime;
 	}
-	
+
 }
