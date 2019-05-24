@@ -17,10 +17,10 @@ public interface ConfigI {
     String RECORD_IP_IGNORE = "0:0:0:0:0:0:0:0 0:0:0:0:0:0:0:1 127.0.0.1 0.0.0.0";
 
     // 莉莉聊天机器人接口 http://www.itpk.cn/
-    String LILI_API_KEY = "65bfe093b8f61474fa92c10e211a30bb";
-    String LILI_API_SECRET = "deenjhzya7zd";
+    String LILI_API_KEY = "";
+    String LILI_API_SECRET = "";
     // 图灵聊天机器人接口 http://www.tuling123.com
-    String TULING_KEY = "7c05efffdc8d4f76a04c602fdfdfca2d";
+    String TULING_KEY = "";
 
     // 6小时内每个ip最多留言几次。防灌水。
     int LETTER_TODAY_IP_MAX = 3;
@@ -29,7 +29,7 @@ public interface ConfigI {
     int PAGE_NUMBER = 10;
 
     // 邮件接收者
-    String MAIL_TO = "2736629976@qq.com";
+    String[] ADMIN_MAIL = {"2736629976@qq.com", "1350717815@qq.com"};
 
     // 相爱时间：年，月，日
     int TIME_LOVE_YEAR = 2015;
@@ -37,15 +37,13 @@ public interface ConfigI {
     int TIME_LOVE_DAY = 11;
 
     // ServletContext 中的名字
-    String SERVLET_TIME_STAMP_HTML = "timeStampHtml";
-    String SERVLET_TIME_STAMP_IMAG = "timeStampImage";
-    String SERVLET_TIME_DATA = "timeData";
     String SERVLET_FIRST_PAGE = "firstPage";
 
     // 后台登录信息
     String TOKEN_URL = "";
     String TOKEN_PHONE = "";
     String TOKEN_DO_LOGIN = "";
+    String TOKEN_GOOGLE_KEY = "";
 
     // 上传的图片（将压缩后的保存到服务器，然后上传到 oss，便于快速访问）
     String IMAGE_LOCAL_PATH = "/home/image/";
@@ -81,4 +79,13 @@ public interface ConfigI {
     String FIRST_PAGE_COPY_RIGHT = "CopyRight © 2015-";
     String FIRST_PAGE_ADMIN_MESSAGE = "欢迎访问，欢迎观看，欢迎留言";
     String FIRST_PAGE_KEYWORDS = "我们的小窝,冯芸霄,张圣晨";
+    String FIRST_PAGE_TIME_STAMP_HTML = "1";
+
+    // js，css 优先使用 cdn
+    String CDN_BOOTSTRAP_CSS = "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css";
+    String CDN_BOOTSTRAP_JS = "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js";
+    String CDN_MUI_CSS = "//cdnjs.cloudflare.com/ajax/libs/mui/3.7.1/css/mui.min.css";
+    String CDN_MUI_JS = "//cdnjs.cloudflare.com/ajax/libs/mui/3.7.1/js/mui.min.js";
+    String CDN_JQUERY_JS = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js";
+
 }
