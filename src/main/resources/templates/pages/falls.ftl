@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <meta name="renderer" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="Keywords" content="${firstPage.keywords}" />
-    <meta name="description" content="${firstPage.description}" />
-    <title>我们的小窝-小相册</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/commen.css" />
-    <link rel="stylesheet" href="css/falls.css" />
-    <style>
-        .content .left {left: 0;cursor: url("image/falls/cur-left1.png"), auto;}
-        .content .right {right: 0;cursor: url("image/falls/cur-right1.png"), auto;}
-    </style>
+  <meta charset="utf-8" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Keywords" content="${firstPage.keywords}" />
+  <meta name="description" content="${firstPage.description}" />
+  <title>我们的小窝-小相册</title>
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
+  <link rel="stylesheet" type="text/css" href="css/commen.css" />
+  <link rel="stylesheet" type="text/css" href="css/falls.css" />
+  <style>
+    .content .left {left: 0;cursor: url("image/falls/cur-left1.png"), auto;}
+    .content .right {right: 0;cursor: url("image/falls/cur-right1.png"), auto;}
+  </style>
 </head>
 <body>
 
@@ -47,8 +47,8 @@
 
 <#include "footer.ftl" >
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
 <script type="text/javascript" src="js/lib/blocksit.min.js"></script>
 <script>
   var prefix = "${prefix}";

@@ -93,14 +93,14 @@ $(".left").click(function (){
 
 //下一张
 function rights(){
-    if(x == $(".content .img").length-1){
+    if(x === $(".content .img").length-1){
         notification('warn','已是最后一张',1000);
         //x = 0;
     }else{x++;img_block();};
 }
 //上一张
 function lefts(){
-    if(x == 0){notification('warn','已是第一张',1000);}else{x--;img_block();}
+    if(x === 0){notification('warn','已是第一张',1000);}else{x--;img_block();}
 }
 
 function seeBig(obj){
@@ -138,7 +138,7 @@ function junge() {
         conWidth = 1000;
         col = 4;
     }
-    if(conWidth != currentWidth) {
+    if(conWidth !== currentWidth) {
         currentWidth = conWidth;
         $("#container").width(conWidth);
         $("#container").BlocksIt({numOfCol: col,offsetX: 5,offsetY: 5});

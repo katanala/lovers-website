@@ -1,21 +1,9 @@
-// 设置身份
-function chooseMale() {
-	mui.confirm('', '选择身份', [ '芸霄', '晨哥', '游客'], function(e) {
-		localStorage.male = e.index;
-	}, 'div');
-}
+// 选择身份
+function chooseMale() {mui.confirm('', '选择身份', [ '芸霄', '晨哥', '游客'], function(e) {localStorage.male = e.index;}, 'div');}
 
 if (!localStorage.male) {chooseMale();}
 
-mui.init({gestureConfig : {
-		tap : true, // 默认为true
-		doubletap : true, // 默认为false
-		longtap : true, // 默认为false
-		swipe : true, // 默认为true
-		drag : true, // 默认为true
-		hold : true, // 默认为false，不监听
-		release : true // 默认为false，不监听
-}});
+mui.init({gestureConfig:{tap:true,doubletap:true,longtap:true,swipe:true,drag:true,hold:true,release:true}});
 
 var ui = {
 	footer : document.querySelector('footer'),
@@ -28,18 +16,30 @@ var ui = {
 	content : document.querySelector('.mui-content')
 };
 ui.h.style.width = ui.boxMsgText.offsetWidth + 'px';
-var bindMsgList = function(istop,male,content) {//istop 是否滚动到顶部
-	if (istop) {
-		ui.areaMsgList.innerHTML = chatModel(male,content) + ui.areaMsgList.innerHTML;
-	} else {
-		ui.areaMsgList.innerHTML = ui.areaMsgList.innerHTML+chatModel(male,content);
-	}
-	
-	if (istop) {ui.areaMsgList.scrollTop = 0;} 
-	else {
-		ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight+ ui.areaMsgList.offsetHeight;
-	}
-	
+
+// 向前添加多条记录（通常是查看历史记录）
+var bindMsgList = function(messages) {//istop 是否滚动到顶部
+	// 删除当前的 获取更多按钮
+	var moreBtn = document.getElementById("getMoreBtn");
+	if (moreBtn) {
+        moreBtn.removeAttribute("id");
+        var button = moreBtn.querySelector("button");
+        button.setAttribute("disabled", "disabled");
+        button.innerHTML = "加载完毕";
+    }
+
+    // 添加最顶层 获取更多按钮
+    var htmls = "<div id='getMoreBtn' class='msg-item'><div class='msg-item msg-item-other'><button onclick='getMoreMessage()'>点击加载更多</button></div> <div class='mui-item-clear'></div> </div>";
+
+    var beforeHeight = ui.areaMsgList.scrollHeight;
+	for (var i = 0; i < messages.length; i++) {
+        htmls += chatModel(messages[i].male,messages[i].content.replace(new RegExp('\n', 'gm'),'<br/>'));
+    }
+	ui.areaMsgList.innerHTML = htmls + ui.areaMsgList.innerHTML;
+	var afterHeight = ui.areaMsgList.scrollHeight;
+
+    ui.areaMsgList.scrollTop = afterHeight-beforeHeight;
+    console.log("clientHeight:"+ ui.areaMsgList.clientHeight + "，scrollHeight:"+ui.areaMsgList.scrollHeight);
 };
 
 window.addEventListener('resize', function() {
@@ -131,16 +131,19 @@ function userSend(male,text) {
 	websocket.send(JSON.stringify(json));
 }
 
-function getMoreMessage() {websocket.send(maxCid);}
+function getMoreMessage() {
+	websocket.send(maxCid);
+	console.log("加载聊天历史记录，maxCid:"+maxCid);
+}
 
 function initWebSocket() {
 	var protocolStr = document.location.protocol;
+	var host = window.location.host;
 
-    //websocket = new WebSocket("ws://127.0.0.1/chatSocket");
-    console.log("protocol:"+protocolStr);
+    console.log(protocolStr+"//"+host);
 
-    if (protocolStr.indexOf("https") !== -1) { websocket = new WebSocket("wss://www.fengyunxiao.cn/chatSocket"); }
-    else { websocket = new WebSocket("ws://www.fengyunxiao.cn/chatSocket"); }
+    if (protocolStr.indexOf("https") !== -1) { websocket = new WebSocket("wss://"+host+"/chatSocket"); }
+    else { websocket = new WebSocket("ws://"+host+"/chatSocket"); }
 	
 	if (!websocket) { tip.innerHTML = "连接失败！"; } 
 	else { tip.innerHTML = "连接中..."; }
@@ -167,18 +170,15 @@ websocket.onmessage = function(event) {
 	
 	if (data.charAt(0) === "{") { // 有人发消息
 		var message = JSON.parse(data);
-		bindMsgList(false,message.male,message.content.replace(new RegExp('\n', 'gm'), '<br/>'));
+        bindMsg(message.male,message.content.replace(new RegExp('\n', 'gm'), '<br/>'));
 	} else if (data.charAt(0) === "[") { // 加载多条历史消息时
 		var messages = JSON.parse(data);
 
 		if (messages.length > 0) {
-			maxCid = messages[messages.length - 1].cid;
-		} else {return;}
-		
-		for (var i = 0; i < messages.length; i++) {
-			bindMsgList(true,messages[i].male, messages[i].content.replace(new RegExp('\n', 'gm'),'<br/>'));
+		    console.log("本页第一个cid："+messages[0].cid);
+			maxCid = messages[0].cid;
+            bindMsgList(messages);
 		}
-		
 	}
 }
 
@@ -211,3 +211,10 @@ function chatModel(male, content) {
 	var maleEnd = "<div class='mui-item-clear'></div></div>";
 	return maleDiv+maleImg+maleContent+maleEnd;
 }
+
+// 聊天内容向后添加单条信息（通常是实时的单条聊天数据）
+var bindMsg = function(male,content) {
+    var html = chatModel(male,content);
+    ui.areaMsgList.insertAdjacentHTML('beforeend', html);
+    ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight+ ui.areaMsgList.offsetHeight;
+};

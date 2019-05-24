@@ -9,7 +9,7 @@
   <meta name="Keywords" content="" />
   <meta name="description" content="" />
   <title>错误报告</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
 </head>
 <body>
 

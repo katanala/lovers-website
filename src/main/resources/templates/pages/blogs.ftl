@@ -9,8 +9,8 @@
   <meta name="Keywords" content="博客,blog" />
   <meta name="description" content="${firstPage.description},博客,blog" />
   <title>博客</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/commen.css?v=${timeStampHtml}" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
+  <link rel="stylesheet" type="text/css" href="css/commen.css?v=${firstPage.timeStampHtml}" />
 </head>
 <body>
 
@@ -85,9 +85,9 @@
 
 <#include "footer.ftl" >
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/lib/pagetool.js?v=${timeStampHtml}"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
+<script type="text/javascript" src="js/lib/pagetool.js?v=${firstPage.timeStampHtml}"></script>
 <script type="text/javascript">
     setPage(${page}, ${allpage}, "getMsg");
     function getMsg(page) {

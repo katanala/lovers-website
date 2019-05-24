@@ -9,7 +9,7 @@
   <meta name="Keywords" content="${firstPage.keywords}" />
   <meta name="description" content="${firstPage.description}" />
   <title>小窝-后台-登录</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
 </head>
 
 <body>
@@ -21,6 +21,10 @@
       <label for="phone">手机号：</label>
       <input type="password" class="form-control" id="phone" name="phone" placeholder="手机号">
     </div>
+    <div class="form-group">
+      <label for="google">谷歌验证：</label>
+      <input type="text" class="form-control" id="google" name="google" placeholder="谷歌验证">
+    </div>
     <div id="yanzhengma-parent" class="form-group">
       <label for="veri">验证码: <img onclick="refreshimage(this)" src="veri" /> </label>
       <input type="text" class="form-control" id="veri" name="veri" placeholder="验证码">
@@ -29,12 +33,12 @@
   </form>
 </div>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
 <script>
-    function refreshimage(obj) {
-      obj.src = "veri?r=" + Math.random();
-    }
+  function refreshimage(obj) {
+    obj.src = "veri?r=" + Math.random();
+  }
 </script>
 </body>
 </html>

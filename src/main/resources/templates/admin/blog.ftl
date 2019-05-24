@@ -9,7 +9,7 @@
   <meta name="Keywords" content="${firstPage.keywords}" />
   <meta name="description" content="${firstPage.description}" />
   <title>博客-编辑</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
   <link rel="stylesheet" type="text/css" href="/editormd/css/editormd.min.css" />
   <script async src="//lookimg.com/sdk/pup.js" data-url="https://lookimg.com/upload" data-auto-insert="markdown-embed-medium"></script>
 </head>
@@ -59,8 +59,8 @@
 
 </div>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
 <script type="text/javascript" src="/editormd/editormd.min.js"></script>
 <script>
   var bid = ${bid};

@@ -9,9 +9,9 @@
   <meta name="Keywords" content="${firstPage.keywords}" />
   <meta name="description" content="${firstPage.description}" />
   <title>我们的小窝</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/commen.css?v=${timeStampHtml}" />
-  <link rel="stylesheet" type="text/css" href="css/index.css?v=${timeStampHtml}" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
+  <link rel="stylesheet" type="text/css" href="css/commen.css?v=${firstPage.timeStampHtml}" />
+  <link rel="stylesheet" type="text/css" href="css/index.css?v=${firstPage.timeStampHtml}" />
 </head>
 <body>
 
@@ -25,8 +25,9 @@
       <h1>${firstPage.titlePrimary}</h1>
       <h3>${firstPage.titleSecondary}</h3>
       <div style="text-align: center;width: 100%;margin-top: 2.2rem;">
-        <a href="/chat" class="btn btn-outline-danger mr-md-4">聊天室</a>
-        <a href="/falls" class="btn btn-outline-danger">小相册</a>
+        <a href="/chat" class="btn btn-outline-danger mr-md-2">聊天室</a>
+        <a href="/falls" class="btn btn-outline-danger mr-md-2">小相册</a>
+        <a class="btn btn-outline-danger" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${firstPage.contactQQ}&site=qq&menu=yes">在线QQ</a>
       </div>
     </div>
   </section>
@@ -37,9 +38,9 @@
     <div class="container">
       <h1>We have loved For</h1>
       <div class="time">
-        <div>${timeData.periodYears} 年</div>
-        <div>${timeData.periodMonths} 月</div>
-        <div>${timeData.periodDays} 日</div>
+        <div>${firstPage.lovePeriodYears} 年</div>
+        <div>${firstPage.lovePeriodMonths} 月</div>
+        <div>${firstPage.lovePeriodDays} 日</div>
       </div>
     </div>
   </section>
@@ -52,7 +53,7 @@
       <div class="col-6 col-sm-6 col-lg-3">
         <div class="card">
           <a href="//static.fengyunxiao.cn/nest/photos/3d/index.html" target="_blank">
-            <img class="img-thumbnail rounded card-img-top" src="image/index/1.jpg?v=${timeStampImage}" alt="3D 相册">
+            <img class="img-thumbnail rounded card-img-top" src="image/index/1.jpg" alt="3D 相册">
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -64,7 +65,7 @@
       <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
         <div class="card">
           <a href="//static.fengyunxiao.cn/nest/photos/ipresenter/index.html" target="_blank">
-            <img class="img-thumbnail rounded card-img-top" src="image/index/2.jpg?v=${timeStampImage}" alt="旋转相册">
+            <img class="img-thumbnail rounded card-img-top" src="image/index/2.jpg" alt="旋转相册">
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -76,7 +77,7 @@
       <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
         <div class="card">
           <a href="//static.fengyunxiao.cn/nest/photos/rotate/index.html" target="_blank">
-            <img class="img-thumbnail rounded card-img-top" src="image/index/3.jpg?v=${timeStampImage}" alt="魔方相册">
+            <img class="img-thumbnail rounded card-img-top" src="image/index/3.jpg" alt="魔方相册">
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -88,7 +89,7 @@
       <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
         <div class="card">
           <a href="//static.fengyunxiao.cn/nest/photos/wall/index.html" target="_blank">
-            <img class="img-thumbnail rounded card-img-top" src="image/index/4.jpg?v=${timeStampImage}" alt="九宫格相册">
+            <img class="img-thumbnail rounded card-img-top" src="image/index/4.jpg" alt="九宫格相册">
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -214,10 +215,9 @@
 
 <#include "pages/footer.ftl" >
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/index.js?v=${timeStampHtml}" charset="UTF-8"></script>
-<script type="text/javascript" src="js/lib/rollup.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
+<script type="text/javascript" src="js/index.js?v=${firstPage.timeStampHtml}" charset="UTF-8"></script>
 
 </body>
 </html>

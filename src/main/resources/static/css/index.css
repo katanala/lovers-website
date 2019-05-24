@@ -24,6 +24,7 @@ textarea {resize: none;}
 .nickname-and-button {margin-top: 1.1rem;}
 .style-old {white-space: pre-wrap;word-wrap: break-word;text-align: center;margin-top: 1.9rem;margin-bottom: 1.4rem;}
 
+/* 滚动标签 */
 #tags {height:220px;position:relative;font-size:14px;color:#333;text-align:center;}
 #tags a{position:absolute;top:0px;left:0px;color:#333;text-decoration:none;margin:0 10px 15px 0;line-height:18px;text-align:center;padding:2px 6px;display:inline-block;border-radius:5px;}
 #tags a.tagc1{background:#9966CC;color:#fff;}

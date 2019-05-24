@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-sm-8 col-md-7 py-3">
           <h4>关于：我们的小窝</h4>
-          <p class="text-muted">This nest blongs to 张圣晨 and 冯芸霄, <br />Loved for ${timeData.allDays} days, Thanks for your visit. </p>
+          <p class="text-muted">This nest blongs to 张圣晨 and 冯芸霄, <br />Loved for ${firstPage.loveTotalDays} days, Thanks for your visit. </p>
         </div>
         <div class="col-sm-4 offset-md-1 py-3">
           <h4>联系我们</h4>
@@ -21,7 +21,7 @@
       <a href="/" class="navbar-brand d-flex align-items-center"><strong>我们的小窝</strong></a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a href="/blogs" class="nav-link">博客</a>
+          <a href="/timeline" class="nav-link">时间线</a>
         </li>
       </ul>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">

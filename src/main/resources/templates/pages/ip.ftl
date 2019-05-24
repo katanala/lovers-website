@@ -9,9 +9,9 @@
   <meta name="Keywords" content="${firstPage.keywords}" />
   <meta name="description" content="${firstPage.description}" />
   <title>我们的小窝-访问</title>
-  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/commen.css?v=${timeStampHtml}" />
-  <link rel="stylesheet" href="css/ip.css?v=${timeStampHtml}" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
+  <link rel="stylesheet" href="css/commen.css?v=${firstPage.timeStampHtml}" />
+  <link rel="stylesheet" href="css/ip.css?v=${firstPage.timeStampHtml}" />
 </head>
 <body>
 
@@ -57,12 +57,12 @@
 
 <#include "footer.ftl" >
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
 <script type="text/javascript" src="js/lib/pagetool.js"></script>
 <script type="text/javascript">
   var allpage = ${allpage};
 </script>
-<script type="text/javascript" src="js/ip.js?v=${timeStampHtml}" charset="UTF-8"></script>
+<script type="text/javascript" src="js/ip.js?v=${firstPage.timeStampHtml}" charset="UTF-8"></script>
 </body>
 </html>

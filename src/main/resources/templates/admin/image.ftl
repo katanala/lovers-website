@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <meta name="renderer" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="Keywords" content="${firstPage.keywords}" />
-    <meta name="description" content="${firstPage.description}" />
-    <title>小窝-后台-图片</title>
-    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+  <meta charset="utf-8" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Keywords" content="${firstPage.keywords}" />
+  <meta name="description" content="${firstPage.description}" />
+  <title>小窝-后台-图片</title>
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
 </head>
 <body>
 
@@ -31,42 +31,32 @@
     <hr />
 
     <h2 class="text-center">修改图片</h2>
-    <p>当前共：{$totalImage} 张照片</p>
-    <#--<table class="table table-backgroud table-hover table-bordered table-striped">
+    <p>当前共：${total} 张照片</p>
+    <table class="table table-backgroud table-hover table-bordered table-striped">
         <thead>
         <tr>
-            <th>编号</th>
-            <th>图片</th>
-            <th>状态</th>
-            <th>地址</th>
-            <th>设置</th>
+          <th>类型</th>
+          <th>图片</th>
+          <th>地址</th>
+          <th>设置</th>
         </tr>
         </thead>
-        {volist name="images" id="image"}
+        <#list images as image>
         <tr>
-            <td>{$image.iid}</td>
-            <td> <img height="120px" src="{$qiniupath}{$image.name}"> </td>
-            {eq name="$image.isshow" value="1"}
-            <td> <span class="text-success">已显示</span> </td>
-            {else/}
-            <td> <span class="text-danger">未显示</span> </td>
-            {/eq}
-            <td>{$qiniupath}{$image.name}</td>
-            {eq name="$image.isshow" value="1"}
-            <td>
-                <a class="btn btn-secondary" href="/index.php/admin/Image/setShow?isshow=0&iid={$image.iid}">设为隐藏</a>
-                <a class="btn btn-danger" href="/index.php/admin/Image/delete?iid={$image.iid}">删除</a>
-            </td>
-            {else/}
+          <#if image.bid<0>
+            <td>相册</td>
+          <#else>
+            <td>博客：${image.bid}</td>
+          </#if>
 
-            <td>
-                <a class="btn btn-secondary" href="/index.php/admin/Image/setShow?isshow=1&iid={$image.iid}">设为显示</a>
-                <a class="btn btn-danger" href="/index.php/admin/Image/delete?iid={$image.iid}">删除</a>
-            </td>
-            {/eq}
-            </tr>
-        {/volist}
-    </table>-->
+          <td> <img height="120px" src="${ossUrl}${image.name}"> </td>
+          <td>${ossUrl}${image.name}</td>
+          <td>
+            <a href="/adminLove/deleteImage?iid=${image.iid}">删除</a>
+          </td>
+        </tr>
+        </#list>
+    </table>
 
     <ul id="pagination" class="pagination">
         <li class="page-item head"><a class="page-link" href="#">首</a></li>
@@ -81,13 +71,13 @@
     </ul>
 </div>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="__JS__/lib/pagetool.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
+<script type="text/javascript" src="/js/lib/pagetool.js"></script>
 <script type="text/javascript">
-    setPage(Number('{$curpage}'), Number('{$allpage}'), "getMsg");
+    setPage(Number(${curpage}), Number(${allpage}), "getMsg");
     function getMsg(p) {
-        location.href="/index.php/admin/Index/image?page="+p;
+        location.href="/adminLove/image?page="+p;
     }
 </script>
 </body>

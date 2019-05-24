@@ -9,8 +9,8 @@
   <meta name="Keywords" content="${blog.keyword},${blog.title}" />
   <meta name="description" content="${blog.title},${blog.keyword}" />
   <title>${blog.title}</title>
-  <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="/css/commen.css?v=${timeStampHtml}" />
+  <link rel="stylesheet" type="text/css" href="${firstPage.cdnBootstrapCss}" />
+  <link rel="stylesheet" type="text/css" href="/css/commen.css?v=${firstPage.timeStampHtml}" />
   <link rel="stylesheet" type="text/css" href="/editormd/css/editormd.preview.css" />
 </head>
 <body>
@@ -49,8 +49,8 @@
 
 <#include "footer.ftl" >
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${firstPage.cdnJqueryJs}"></script>
+<script type="text/javascript" src="${firstPage.cdnBootstrapJs}"></script>
 <script type="text/javascript" src="/editormd/lib/marked.min.js"></script>
 <script type="text/javascript" src="/editormd/lib/prettify.min.js"></script>
 <script type="text/javascript" src="/editormd/editormd.js"></script>

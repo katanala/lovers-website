@@ -3,8 +3,8 @@
     <div class="row footer-top">
       <div class="col-sm-6 col-lg-6">
         <h4>我们的小窝</h4>
-        <p>${firstPage.copyRight}${timeData.year}</p>
-        <p>${firstPage.adminMessage}</p>
+        <p>${firstPage.copyRight}${firstPage.currencyYear} <br />
+        ${firstPage.adminMessage}</p>
       </div>
       <div class="col-sm-6  col-lg-5">
         <div class="row about">
@@ -18,11 +18,15 @@
           <div class="col-6">
             <h4>交流</h4>
             <ul class="list-unstyled">
-              <li><a href="/chat">聊天室</a></li>
-              <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${firstPage.contactQQ}&site=qq&menu=yes">QQ:${firstPage.contactQQ}</a></li>
+              <li><a href="/blogs">博客</a></li>
+              <li><a target="_blank" href="https://github.com/katanala/lovers-website">github</a></li>
             </ul>
           </div>
         </div>
+      </div>
+
+      <div class="text-center" style="margin-bottom: 2rem;">
+        友情链接： <a href="https://love109.cn">纪实小屋</a>
       </div>
 
       <div class="text-center">
