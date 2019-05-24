@@ -2,9 +2,8 @@ package cn.fengyunxiao.nest.service;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.util.Jackson;
 import cn.fengyunxiao.nest.util.XssUtil;
@@ -94,8 +93,8 @@ public class ChatService {
 			maxtemp = Integer.MAX_VALUE;
 		}
 		
-		List<Chat> messages = null;
-		messages = chatDao.list(maxtemp, 12);
+		List<Chat> messages = chatDao.list(maxtemp, 32);
+		Collections.reverse(messages);
 		String json;
 		try {
 			json = Jackson.toJson(messages);
