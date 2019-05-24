@@ -61,7 +61,7 @@ public class ImageUtil {
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
 		imageWriter.reset();
 		imageWriter.setOutput(ImageIO.createImageOutputStream(fileOutputStream));
-		imageWriter.write(null, new IIOImage(srcFile, null, null), imageWriteParam);
+		imageWriter.write(null, new IIOImage(image, null, null), imageWriteParam);
 
 		fileOutputStream.flush();
 		fileOutputStream.close();
@@ -100,6 +100,18 @@ public class ImageUtil {
 		// 上传内容到指定的存储空间（bucketName）并保存为指定的文件名称（objectName）。
 		ossClient.putObject(Config.OSS_BUCKET_NAME, name, input);
 		ossClient.shutdown();
+	}
+
+	public static boolean aliOssExist(String name) {
+		OSSClient ossClient = new OSSClient(Config.OSS_PROTOCOL+Config.OSS_ENDPOINT,
+				Config.OSS_ACCESS_KEY_ID, Config.OSS_ACCESS_KEY_SECRET);
+		return ossClient.doesObjectExist(Config.OSS_BUCKET_NAME, name);
+	}
+
+	public static void aliOssDelete(String name) {
+		OSSClient ossClient = new OSSClient(Config.OSS_PROTOCOL+Config.OSS_ENDPOINT,
+				Config.OSS_ACCESS_KEY_ID, Config.OSS_ACCESS_KEY_SECRET);
+		ossClient.deleteObject(Config.OSS_BUCKET_NAME, name);
 	}
 
 	public static String getAliOssUrl(String fileName) {
