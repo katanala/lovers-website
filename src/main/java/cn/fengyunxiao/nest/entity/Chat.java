@@ -32,5 +32,11 @@ public class Chat {
 	public void setPubtime(Timestamp pubtime) {
 		this.pubtime = pubtime;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Chat{" +
+				"cid=" + cid +
+				'}';
+	}
 }
