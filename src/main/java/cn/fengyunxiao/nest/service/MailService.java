@@ -1,16 +1,20 @@
 package cn.fengyunxiao.nest.service;
 
+import cn.fengyunxiao.nest.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-    private static final Logger logger = LoggerFactory.getLogger(MailService.class);
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private JavaMailSender javaMailSender;
+    @Value("${spring.mail.username}")
+    private String mailFrom;
 
     @Autowired
     public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -18,7 +22,7 @@ public class MailService {
     }
 
     // 发送邮件耗时任务，另起线程，不影响主线程
-    public void sendSimpleMail(String from, String to, String title, String text) {
+    private void sendSimpleMail(String from, String to, String title, String text) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -35,6 +39,16 @@ public class MailService {
                 }
             }
         }).start();
+    }
+
+    public void sendMail(String title, String text) {
+        if (mailFrom == null || mailFrom.isEmpty()) {
+            logger.info("邮件发送者未配置，不发送邮件！");
+            return;
+        }
+        for (String mailTo : Config.ADMIN_MAIL) {
+            sendSimpleMail(mailFrom, mailTo, title, text);
+        }
     }
 
 }
