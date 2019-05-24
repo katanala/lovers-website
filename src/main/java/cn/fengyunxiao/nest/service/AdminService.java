@@ -6,6 +6,11 @@ import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.entity.Blog;
 import cn.fengyunxiao.nest.entity.Image;
 import cn.fengyunxiao.nest.util.ImageUtil;
+import edu.uci.ics.crawler4j.crawler.CrawlConfig;
+import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.fetcher.PageFetcher;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,6 +40,30 @@ public class AdminService {
     @Autowired
     public void setBlogDao(BlogDao blogDao) {
         this.blogDao = blogDao;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String deleteImage(Integer iid, Object adminToken) {
+        // 用户鉴权
+        if (!Config.TOKEN_DO_LOGIN.equals(adminToken)) {
+            return "删除失败：未授权用户";
+        }
+
+        Image image = imageDao.queryImage(iid);
+        if (image == null || image.getName() == null) {
+            return "删除失败：数据库中不存在";
+        }
+
+        String ossResult;
+        if (ImageUtil.aliOssExist(image.getName())) {
+            ImageUtil.aliOssDelete(image.getName());
+            ossResult = "oss 中已删除，";
+        } else {
+            ossResult = "oss 中不存在，";
+        }
+
+        int result = imageDao.deleteImage(iid);
+        return ossResult+"数据库删除数量："+result+"，服务器文件中暂不删除";
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -172,5 +202,41 @@ public class AdminService {
         }
 
         return bid;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public int countImage() {
+        return imageDao.getTotal();
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public List<Image> listImage(int page, int number) {
+        return imageDao.listImageByPage((page-1)*number, number);
+    }
+
+    public void crawler(String startUrl, Class t) {
+        CrawlConfig config = new CrawlConfig();
+        // 保存位置
+        config.setCrawlStorageFolder(Config.CRAWLER_LOCAL_FOLER);
+        // 开启 ssl
+        config.setIncludeHttpsPages(true);
+        // 最大抓几个
+        config.setMaxPagesToFetch(Config.CRAWLER_MaxPagesToFetch);
+        // 递归深度
+        config.setMaxDepthOfCrawling(Config.CRAWLER_MaxDepthOfCrawling);
+
+        PageFetcher pageFetcher = new PageFetcher(config);
+        RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
+        RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
+        CrawlController controller = null;
+        try {
+            controller = new CrawlController(config, pageFetcher, robotstxtServer);
+        } catch (Exception e) {
+            return;
+        }
+
+        controller.addSeed(startUrl);
+        // 开启1个线程
+        controller.start(t, 1);
     }
 }
