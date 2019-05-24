@@ -2,7 +2,7 @@
 
 参考地址（address）：http://www.fengyunxiao.cn
 
-备用地址（address）：http://t.cn/Ef6v2Uw
+备用地址（address）：https://www.fengyunxiao.cn
 
 
 目标（goal）：部署简单，安全高效，只需修改配置，即可搭建自己的情侣网站，属于你们的小窝。
