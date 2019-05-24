@@ -113,7 +113,7 @@ public class LetterService {
 		Config.lastLetter4 = null;
 		// 新线程：发送邮件通知
 		String text = "昵称："+nickname+"；留言内容："+content;
-		mailService.sendSimpleMail(Config.MAIL_FROM, Config.MAIL_TO, "新的留言", text);
+		mailService.sendMail("我们的小窝留言", text);
 		return result.ok(null, "留言成功");
 	}
 
