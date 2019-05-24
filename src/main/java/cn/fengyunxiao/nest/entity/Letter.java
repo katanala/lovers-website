@@ -1,7 +1,6 @@
 package cn.fengyunxiao.nest.entity;
 
 import java.sql.Timestamp;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Letter {
 	private Integer lid;
