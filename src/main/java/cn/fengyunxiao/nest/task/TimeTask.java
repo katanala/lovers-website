@@ -1,7 +1,7 @@
 package cn.fengyunxiao.nest.task;
 
 import cn.fengyunxiao.nest.config.Config;
-import cn.fengyunxiao.nest.config.TimeData;
+import cn.fengyunxiao.nest.config.FirstPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class TimeTask {
             return;
         }
 
-        servletContext.setAttribute(Config.SERVLET_TIME_DATA, new TimeData());
+        servletContext.setAttribute(Config.SERVLET_FIRST_PAGE, new FirstPage());
         logger.info("已重置纪念日和图表缓存");
     }
 
