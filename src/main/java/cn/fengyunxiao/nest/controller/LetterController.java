@@ -29,7 +29,8 @@ public class LetterController {
     @PostMapping("/listLetter")
     @ResponseBody
     public List<Letter> listLetter(Integer lid, Integer number, Boolean isRand) {
-        return letterService.listLetter(lid, number, isRand);
+        List<Letter> letters = letterService.listLetter(lid, number, isRand);
+        return letters;
     }
 
     /**
