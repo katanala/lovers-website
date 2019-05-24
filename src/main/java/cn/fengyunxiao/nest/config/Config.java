@@ -13,9 +13,6 @@ public class Config implements ConfigI {
     // 记录总的ip个数，listener 初始化，每插入一个ip，该值+1
     public static Integer ipCount = 0;
 
-    // 邮件发送者，初始化时从 application.yml 中读取
-    public static String MAIL_FROM = null;
-
     // 图表数据缓存，启动服务后初始化，6个小时更新一次
     public static Map<String, Object> charts = null;
 
