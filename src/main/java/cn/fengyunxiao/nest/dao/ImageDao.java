@@ -15,14 +15,14 @@ public interface ImageDao {
 	@Select("select * from image where bid=-1 and iid<#{iid} order by iid desc limit #{number}")
 	public List<Image> listUploadImage(@Param("iid") long iid, @Param("number") int number);
 	
-	@Select("select * from image order by iid desc limit #{page},#{per}")
-	public List<Image> listImageByPage(@Param("page") int page, @Param("per") int per);
+	@Select("select * from image order by iid desc limit #{cur},#{number}")
+	public List<Image> listImageByPage(@Param("cur") int cur, @Param("number") int number);
 	
 	@Delete("delete from image where iid = #{iid}")
-	public int deleteImage(@Param("iid") long iid);
+	public int deleteImage(@Param("iid") int iid);
 	
 	@Select("select * from image where iid = #{iid}")
-	public Image queryImage(@Param("iid") long iid);
+	public Image queryImage(@Param("iid") int iid);
 	
 	@Select("select count(*) from image")
 	public int getTotal();
