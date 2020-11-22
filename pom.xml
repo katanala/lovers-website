@@ -10,12 +10,12 @@
     </parent>
     <groupId>cn.fengyunxiao</groupId>
     <artifactId>nest</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>nest</name>
     <description>nest project for Spring Boot</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>

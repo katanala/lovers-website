@@ -26,25 +26,17 @@ https地址（address of https）：https://www.fengyunxiao.cn
 | name  | address  |
 -:|:-
 | btc  | 19ipzAnQ2ZebbLukbpaebgSukXbK3FkicS |
-| bch  | 17wYiDbBhvA3KW3Wh3KLbmCpjsXcRZsNa7 |
-| bsv  | 17wYiDbBhvA3KW3Wh3KLbmCpjsXcRZsNa7 |
 | eth  | 0x99b896244e6f9dc4d49b4a1dce6a3971c40310f8 |
-| etc  | 0x7a35af5a7886212694f47cb3cf086e8490586db2 |
 | ltc  | LYEwf8TvMikNdZEbZVbPmZ11yAydffoDdX |
-| trx  | TPX2taiq83TDoq8tQpvz2YTECtmNPZAwB2 |
-| atom  | cosmos1plzkgsasn06c8hng7wvaqvz34wav5lhmy4y4qx |
-| ont  | AJvyJwytQvdWCCTepYcJFmyXvnr8avj3MU |
-| doge  | DDWxY5RgRVL1irFjjyGjNG2Y4g1eyrVZgX |
-| ht  | 0x99b896244e6f9dc4d49b4a1dce6a3971c40310f8 |
 
 ---
 
 ### 部署说明
 
 
-数据库sql：src\main\java\cn\fengyunxiao\nest\config\zscfyx.sql
+数据库sql：nest.sql
 
-密码、密钥等配置：src\main\java\cn\fengyunxiao\nest\config\ConfigI.java
+密码、密钥等配置：nest.sql 中的 install 表
 
 数据库、邮箱等配置：src\main\resources\application.yml
 
@@ -60,7 +52,7 @@ https地址（address of https）：https://www.fengyunxiao.cn
 
 问：如何访问？
 
-答：默认以https方式访问，浏览器输入地址：https://127.0.0.1
+答：默认以http方式访问，浏览器输入地址：http://127.0.0.1
 
 
 问：如何使用自己的域名SSL证书？
