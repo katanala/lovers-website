@@ -1,29 +1,29 @@
 package cn.fengyunxiao.nest.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.*;
 import cn.fengyunxiao.nest.entity.Image;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
 public interface ImageDao {
-	@Insert("insert into image(bid,name,pubtime) values(#{bid},#{name},now())")
-	public int insertImage(Image image);
-	
-	@Select("select * from image where bid=-1 and iid<#{iid} order by iid desc limit #{number}")
-	public List<Image> listUploadImage(@Param("iid") long iid, @Param("number") int number);
-	
-	@Select("select * from image order by iid desc limit #{cur},#{number}")
-	public List<Image> listImageByPage(@Param("cur") int cur, @Param("number") int number);
-	
-	@Delete("delete from image where iid = #{iid}")
-	public int deleteImage(@Param("iid") int iid);
-	
-	@Select("select * from image where iid = #{iid}")
-	public Image queryImage(@Param("iid") int iid);
-	
-	@Select("select count(*) from image")
-	public int getTotal();
+    @Insert({ "insert into image(bid,name,pubtime) values(#{bid},#{name},now())" })
+    int insertImage(final Image image);
+
+    @Select({ "select * from image where bid=-1 and iid<#{iid} order by iid desc limit #{number}" })
+    List<Image> listUploadImage(@Param("iid") final long iid, @Param("number") final int number);
+
+    @Select({ "select * from image order by iid desc limit #{cur},#{number}" })
+    List<Image> listImageByPage(@Param("cur") final int cur, @Param("number") final int number);
+
+    @Delete({ "delete from image where iid = #{iid}" })
+    int deleteImage(@Param("iid") final int iid);
+
+    @Select({ "select * from image where iid = #{iid}" })
+    Image queryImage(@Param("iid") final int iid);
+
+    @Select({ "select count(*) from image" })
+    int getTotal();
 }

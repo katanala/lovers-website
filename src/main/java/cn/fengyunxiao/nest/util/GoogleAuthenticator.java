@@ -16,22 +16,15 @@ public class GoogleAuthenticator {
 
     private static final String RANDOM_NUMBER_ALGORITHM = "SHA1PRNG";
 
-    private int window_size = 3; // default 3 - max 17 (from google docs)最多可偏移的时间
+    // 最多可偏移的时间 3 - 17
+    private int window_size = 3;
 
     private void setWindowSize(int s) {
         if (s >= 1 && s <= 17)
             window_size = s;
     }
 
-    public static String genSecret(String name) {
-        String secret = GoogleAuthenticator.generateSecretKey();
-        //GoogleAuthenticator.getQRBarcodeURL("testuser","testhost", secret);
-        GoogleAuthenticator.getQRBarcodeURL(name,
-                "testhost", secret);
-        return secret;
-    }
-
-    public static String generateSecretKey() {
+    public String generateSecretKey() {
         SecureRandom sr = null;
         try {
             sr = SecureRandom.getInstance(RANDOM_NUMBER_ALGORITHM);
@@ -41,15 +34,8 @@ public class GoogleAuthenticator {
             byte[] bEncodedKey = codec.encode(buffer);
             return new String(bEncodedKey);
         } catch (NoSuchAlgorithmException e) {
-            // should never occur... configuration error
-            System.out.println("google authenticator configuration error");
+            return null;
         }
-        return null;
-    }
-
-    public static String getQRBarcodeURL(String user, String host, String secret) {
-        String format = "https://www.google.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=otpauth://totp/%s@%s%%3Fsecret%%3D%s";
-        return String.format(format, user, host, secret);
     }
 
     public boolean check_code(String secret, long code, long timeMsec) {
@@ -64,18 +50,14 @@ public class GoogleAuthenticator {
             long hash;
             try {
                 hash = verify_code(decodedKey, t + i);
+                System.out.println(hash);
             } catch (Exception e) {
-                // Yes, this is bad form - but
-                // the exceptions thrown would be rare and a static configuration problem
-                e.printStackTrace();
                 throw new RuntimeException(e.getMessage());
-                //return false;
             }
             if (hash == code) {
                 return true;
             }
         }
-        // The validation code is invalid.
         return false;
     }
 
@@ -103,16 +85,17 @@ public class GoogleAuthenticator {
         return (int) truncatedHash;
     }
 
+/*
     public static void main(String[] args) {
-//        String secret = genSecret("fg24dxZg");//获取key
-//        System.out.println("secret : "+secret);
-
         GoogleAuthenticator ga = new GoogleAuthenticator();
-        // 最近的 5 个验证码都有效
-        ga.setWindowSize(5);
-        boolean r = ga.check_code("xxxxx", 123213, System.currentTimeMillis());
-    }
 
+        String secret = ga.generateSecretKey();
+        System.out.println("secret : "+secret);
+
+        ga.setWindowSize(5);
+        ga.check_code("ZVRBH5YPC4SORU4L", 123123, System.currentTimeMillis());
+    }
+*/
 
 }
 

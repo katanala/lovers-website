@@ -8,12 +8,12 @@ public class XssUtil {
             return null;
         }
 
-        chars = chars.replace("<","＜");
-        chars = chars.replace(">","＞");
-        chars = chars.replace("&","﹠");
-        chars = chars.replace("\"","＂");
-        chars = chars.replace("/","／");
-        chars = chars.replace("\\","＼");
+        chars = chars.replace("<", "＜");
+        chars = chars.replace(">", "＞");
+        chars = chars.replace("&", "﹠");
+        chars = chars.replace("\"", "＂");
+        chars = chars.replace("/", "／");
+        chars = chars.replace("\\", "＼");
         return chars;
     }
 
@@ -23,8 +23,8 @@ public class XssUtil {
             return "";
         }
 
-        chars = chars.replace("<","&lt;");
-        chars = chars.replace(">","&gt;");
+        chars = chars.replace("<", "&lt;");
+        chars = chars.replace(">", "&gt;");
         return chars;
     }
 }

@@ -1,9 +1,11 @@
 package cn.fengyunxiao.nest.config;
 
+import java.io.Serializable;
+
 /**
- *  json 返回的结构
+ * json 返回的结构
  */
-public class JsonResult<T> {
+public class JsonResult<T> implements Serializable {
     // code=0表示成功，返回数据data。code!=0，表示错误，返回错误信息msg
     private int code;
     private T data;

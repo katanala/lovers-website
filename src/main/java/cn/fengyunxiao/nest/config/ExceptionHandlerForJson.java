@@ -18,8 +18,8 @@ public class ExceptionHandlerForJson {
     @ResponseBody
     @ExceptionHandler(value = MultipartException.class)
     public Map<String, Object> resolveFileUploadException(MultipartException e) {
-        logger.warn("MultipartMessage："+e.getMessage());
-        logger.warn("MultipartgetCause："+e.getCause());
+        logger.warn("MultipartMessage：" + e.getMessage());
+        logger.warn("MultipartgetCause：" + e.getCause());
         Map<String, Object> map = new HashMap<>();
         map.put("success", 0);
         map.put("message", "上传错误：图片大小超过指定值。建议10M以内");

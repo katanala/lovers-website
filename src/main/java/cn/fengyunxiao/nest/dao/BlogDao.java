@@ -9,38 +9,33 @@ import java.util.List;
 @Repository
 public interface BlogDao {
     @Options(useGeneratedKeys = true, keyProperty = "bid", keyColumn = "bid")
-    @Insert("insert into blog(`rank`,title,keyword,content,modtime,url) " +
-            " values(#{rank},#{title},#{keyword},#{content},#{modtime},#{url})")
-    public int insert(Blog blog);
+    @Insert({ "insert into blog(`rank`,title,keyword,content,modtime,url)  values(#{rank},#{title},#{keyword},#{content},#{modtime},#{url})" })
+    int insert(final Blog blog);
 
-    @Update("update blog set `rank`=#{rank},title=#{title},keyword=#{keyword}, " +
-            " content=#{content},modtime=#{modtime},url=#{url} where bid=#{bid}")
-    public int update(Blog blog);
+    @Update({ "update blog set `rank`=#{rank},title=#{title},keyword=#{keyword},  content=#{content},modtime=#{modtime},url=#{url} where bid=#{bid}" })
+    int update(final Blog blog);
 
-    @Select("select * from blog where bid=#{bid}")
-    public Blog get(@Param("bid") int bid);
+    @Delete("delete from `blog` where `bid`=#{bid}")
+    int delete(@Param("bid") int bid);
 
-    // 查找最后一个草稿
-    @Select("select bid from blog where `rank`<0 order by bid desc limit 1")
-    public Integer getLastDraft();
+    @Select({ "select * from blog where `bid`=#{bid}" })
+    Blog get(@Param("bid") int bid);
 
-    @Select("SELECT t1.bid,t1.title FROM blog AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(bid)-#{number} FROM blog)) AS bid) AS t2 WHERE t1.bid >= t2.bid ORDER BY t1.bid ASC LIMIT #{number}")
-    public List<Blog> listRand(@Param("number") int number);
+    @Select({ "select bid from blog where `rank`<0 order by bid desc limit 1" })
+    Integer getLastDraft();
 
-    // 按 key 精确度匹配，key 长度 > 1
-    @Select("select bid,`rank`,title,keyword,modtime from blog where " +
-            " MATCH (title,keyword) AGAINST (#{key} IN NATURAL LANGUAGE MODE) limit #{cur},#{per}")
-    public List<Blog> searchByKey2(@Param("key") String key,
-                                   @Param("cur") int cur,
-                                   @Param("per") int per);
+    @Select({ "SELECT t1.bid,t1.title FROM blog AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(bid)-#{number} FROM blog)) AS bid) AS t2 WHERE t1.bid >= t2.bid ORDER BY t1.bid ASC LIMIT #{number}" })
+    List<Blog> listRand(@Param("number") final int number);
 
-    // key 为 null 或长度=1时使用。后发表的排在最前
-    @Select("select bid,`rank`,title,keyword,modtime from blog order by bid desc limit #{cur},#{per}")
-    public List<Blog> listByPage(@Param("cur") int cur, @Param("per") int per);
+    @Select({ "select bid,`rank`,title,keyword,modtime from blog where  MATCH (title,keyword) AGAINST (#{key} IN NATURAL LANGUAGE MODE) limit #{cur},#{per}" })
+    List<Blog> searchByKey2(@Param("key") final String key, @Param("cur") final int cur, @Param("per") final int per);
 
-    @Select("select count(*) from blog")
-    public int countAll();
+    @Select({ "select bid,`rank`,title,keyword,modtime from blog order by bid desc limit #{cur},#{per}" })
+    List<Blog> listByPage(@Param("cur") final int cur, @Param("per") final int per);
 
-    @Select("select bid from blog where url = #{url}")
-    public Integer getBidByUrl(@Param("url") String url);
+    @Select({ "select count(*) from blog" })
+    int countAll();
+
+    @Select({ "select bid from blog where url = #{url}" })
+    Integer getBidByUrl(@Param("url") final String url);
 }

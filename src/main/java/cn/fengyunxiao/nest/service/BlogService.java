@@ -1,130 +1,142 @@
 package cn.fengyunxiao.nest.service;
 
+import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.config.JsonResult;
 import cn.fengyunxiao.nest.dao.BlogDao;
-import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.entity.Blog;
 import cn.fengyunxiao.nest.util.XssUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Service
 public class BlogService {
-    private BlogDao blogDao;
-
-    @Autowired
-    public void setBlogDao(BlogDao blogDao) {
-        this.blogDao = blogDao;
-    }
+    @Autowired private BlogDao blogDao;
+    @Autowired private IpService ipService;
+    private static final Logger logger = LoggerFactory.getLogger(BlogService.class);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public JsonResult<Blog> get(Integer bid) {
-        JsonResult<Blog> result = new JsonResult<>();
+    public JsonResult<Blog> get(final Integer bid, HttpServletRequest request) {
+        final JsonResult<Blog> result = new JsonResult<Blog>();
+        this.ipService.addIp(request);
+
         if (bid == null || bid < 1) {
-            return result.error(-1, "bid 错误");
+            return result.error(-1, "bid error");
         }
-
-        Blog blog = blogDao.get(bid);
+        final Blog blog = this.blogDao.get(bid);
         if (blog == null) {
-            return result.error(-1, "blog 不存在");
+            return result.error(-1, "blog not exist");
         }
-
         return result.ok(blog, "ok");
     }
 
+    @CacheEvict(value = { "blog" }, key = "#blog.bid")
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult<String> update(Blog blog, Object adminToken) {
-        JsonResult<String> result = new JsonResult<>();
-
+    public JsonResult<String> update(final Blog blog, String adminToken) {
+        final JsonResult<String> result = new JsonResult<String>();
         if (blog == null || blog.getBid() == null) {
-            return result.error(-1, "内容不存在");
+            return result.error(-1, "not exist");
         }
-
-        // 用户鉴权
-        if (!Config.TOKEN_DO_LOGIN.equals(adminToken)) {
-            return result.error(-1, "没有管理员权限，不能修改");
+        if (!Config.adminLoginToken.equals(adminToken)) {
+            return result.error(-1, "not admin token");
         }
-
         if (blog.getRank() == null) {
-            return result.error(-1, "rank 不存在");
+            return result.error(-1, "rank not exist");
         }
         if (blog.getTitle() == null) {
-            return result.error(-1, "title 不存在");
+            return result.error(-1, "title not exist");
         }
         blog.setTitle(blog.getTitle().trim());
         if (blog.getTitle().length() > 200) {
-            return result.error(-1, "title 长度>200");
+            return result.error(-1, "title length > 200");
         }
         if (blog.getKeyword() == null) {
-            return result.error(-1, "keyword 不存在");
+            return result.error(-1, "keyword not exist");
         }
-
         blog.setKeyword(blog.getKeyword().trim());
-        // 多个连续空白，替换成一个 ,
         blog.setKeyword(blog.getKeyword().replaceAll("\\s+", ","));
-        // 中文，替换成英文,
         blog.setKeyword(blog.getKeyword().replace("，", ","));
         if (blog.getKeyword().length() > 200) {
-            return result.error(-1, "keyword 长度>200");
+            return result.error(-1, "keyword length>200");
         }
         if (blog.getContent() == null || blog.getContent().length() > 15000) {
-            return result.error(-1, "content 不存在或长度>15000");
+            return result.error(-1, "content length>15000");
         }
         blog.setModtime(new Timestamp(System.currentTimeMillis()));
+        this.blogDao.update(blog);
+        return result.ok("ok", "ok");
+    }
 
-        blogDao.update(blog);
+    @CacheEvict(value = { "blog" }, key = "#bid")
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult<String> delete(Integer bid, String adminToken) {
+        JsonResult<String> result = new JsonResult<String>();
+        if (!Config.adminLoginToken.equals(adminToken)) {
+            return result.error(-1, "not admin token");
+        }
+        if (bid == null || bid < 1) {
+            return result.error(-1, "bid error");
+        }
+        blogDao.delete(bid);
         return result.ok("ok", "ok");
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public int count(String key, int size) {
+    public int count(final String key, final int size) {
         if (key == null || key.length() < 2) {
-            return blogDao.countAll();
-        } else if (size >= Config.PAGE_NUMBER) {
-            return Config.PAGE_NUMBER * 5;
-        } else {
-            return Config.PAGE_NUMBER;
+            return this.blogDao.countAll();
         }
+        if (size >= Config.pageNumber) {
+            return Config.pageNumber * 5;
+        }
+        return Config.pageNumber;
     }
 
-    // 按条件查找，同时转义 title 的 html
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Blog> search(String key, Integer page) {
-        int per = Config.PAGE_NUMBER;
+    public List<Blog> search(final String key, final Integer page) {
+        final int per = Config.pageNumber;
         List<Blog> blogs;
         if (key == null || key.length() < 2) {
-            blogs = blogDao.listByPage((page - 1) * per, per);
+            blogs = this.blogDao.listByPage((page - 1) * per, per);
         } else {
-            blogs = blogDao.searchByKey2(key, (page - 1) * per, per);
+            blogs = this.blogDao.searchByKey2(key, (page - 1) * per, per);
         }
-
-        return replaceTitleEsc(blogs);
+        return this.replaceTitleEsc(blogs);
     }
 
-    // 获取 blog 并将显示的内容的html 转义
+    @Cacheable(value = { "blog" }, key = "#bid")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Blog getBlogEsc(Integer bid) {
-        if (bid == null || bid <= 0) {
-            return null;
-        }
-        Blog blog = blogDao.get(bid);
+    public Blog getBlogEsc(final Integer bid) {
+        BlogService.logger.info("sql_bid:{}", bid);
+        Blog blog = this.blogDao.get(bid);
         if (blog == null) {
-            return null;
+            blog = new Blog();
+            blog.setBid(0);
+            blog.setTitle("");
+            blog.setContent("");
+            blog.setKeyword("");
+            blog.setUrl("");
+            blog.setRank((byte) 0);
+            blog.setModtime(new Timestamp(System.currentTimeMillis()));
+            return blog;
         }
-
         blog.setTitle(XssUtil.replaceHtmlToEsc(blog.getTitle()));
         blog.setKeyword(XssUtil.replaceHtmlToEsc(blog.getKeyword()));
         blog.setContent(XssUtil.replaceHtmlToEsc(blog.getContent()));
         return blog;
     }
 
-    public List<Blog> replaceTitleEsc(List<Blog> blogs) {
-        for (Blog blog : blogs) {
+    public List<Blog> replaceTitleEsc(final List<Blog> blogs) {
+        for (final Blog blog : blogs) {
             blog.setTitle(XssUtil.replaceHtmlToEsc(blog.getTitle()));
             blog.setKeyword(XssUtil.replaceHtmlToEsc(blog.getKeyword()));
         }
@@ -132,9 +144,9 @@ public class BlogService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Blog> rand(int number) {
-        List<Blog> rands = blogDao.listRand(number);
-        for (Blog blog : rands) {
+    public List<Blog> rand(final int number) {
+        final List<Blog> rands = this.blogDao.listRand(number);
+        for (final Blog blog : rands) {
             blog.setTitle(XssUtil.replaceHtmlToEsc(blog.getTitle()));
         }
         return rands;

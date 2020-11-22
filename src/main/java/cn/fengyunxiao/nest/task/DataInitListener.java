@@ -1,8 +1,11 @@
 package cn.fengyunxiao.nest.task;
 
-import cn.fengyunxiao.nest.config.*;
-import cn.fengyunxiao.nest.dao.BlogDao;
+import cn.fengyunxiao.nest.config.Config;
+import cn.fengyunxiao.nest.config.FirstPage;
+import cn.fengyunxiao.nest.entity.Link;
+import cn.fengyunxiao.nest.service.InstallService;
 import cn.fengyunxiao.nest.service.IpService;
+import cn.fengyunxiao.nest.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,43 +14,43 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletContext;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class DataInitListener implements ApplicationListener<ContextRefreshedEvent> {
     private static final Logger logger = LoggerFactory.getLogger(DataInitListener.class);
     private IpService ipService;
-    private BlogDao blogDao;
+    private InstallService installService;
+    private LinkService linkService;
 
     @Autowired
     public void setIpService(IpService ipService) {
         this.ipService = ipService;
     }
     @Autowired
-    public void setBlogDao(BlogDao blogDao) { this.blogDao = blogDao; }
+    public void setInstallService(InstallService installService) { this.installService = installService; }
+    @Autowired
+    public void setLinkService(LinkService linkService) { this.linkService = linkService; }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        // 给爬虫的 blogdao 赋值
-        CrawlerCsdn.blogDao = blogDao;
-        CrawlerDytt.blogDao = blogDao;
 
         Config.ipCount = ipService.total();
 
-        WebApplicationContext webApplicationContext = (WebApplicationContext)contextRefreshedEvent.getApplicationContext();
+        WebApplicationContext webApplicationContext = (WebApplicationContext) contextRefreshedEvent.getApplicationContext();
         ServletContext servletContext = webApplicationContext.getServletContext();
         if (servletContext == null) {
-            logger.error("未获取到： servletContext");
+            logger.error("error: servletContext is null");
             return;
         }
 
-        logger.info("请自行验证时间！currentTimeMillis：" + System.currentTimeMillis());
-        LocalDateTime localDateTime = LocalDateTime.now();
-        logger.info("请自行验证时间！LocalDateTime：" + localDateTime.getYear() + "-" + localDateTime.getMonthValue()
-                + "-" + localDateTime.getDayOfMonth() + " " + localDateTime.getHour() + ":" + localDateTime.getMinute()
-                + ":" + localDateTime.getSecond());
+        installService.checkMysqlTime();
 
-        servletContext.setAttribute(Config.SERVLET_FIRST_PAGE, new FirstPage());
-        logger.info("初始化完毕：servletContext");
+        installService.initConfig();
+        logger.info("inited: config");
+
+        List<Link> links = linkService.getLink();
+        servletContext.setAttribute(Config.servletFirstpage, new FirstPage(links));
+        logger.info("inited: servletContext");
     }
 }

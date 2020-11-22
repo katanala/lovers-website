@@ -1,19 +1,19 @@
 package cn.fengyunxiao.nest.dao;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import cn.fengyunxiao.nest.entity.Chat;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Mapper
 @Repository
 public interface ChatDao {
-	@Select("select * from chat where cid<#{cid} order by cid desc limit #{number}")
-	public List<Chat> list(@Param("cid") int cid, @Param("number") int number);
-	
-	@Insert("insert into chat(male,content,pubtime) values(#{male},#{content},now())")
-	public int insertMessage(Chat message);
+    @Select({ "select * from `chat` where cid<#{cid} order by cid desc limit #{number}" })
+    List<Chat> list(@Param("cid") final int cid, @Param("number") final int number);
+
+    @Insert({ "insert into `chat`(male,content,pubtime) values(#{male},#{content},now())" })
+    int insertChat(final Chat message);
+
+    @Update({ "update `chat` set `content`=#{content} where cid=#{cid}" })
+    int updateChat(final Chat chat);
 }

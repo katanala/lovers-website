@@ -1,13 +1,14 @@
 package cn.fengyunxiao.nest.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Blog {
+public class Blog implements Serializable {
     private Integer bid;
-    private Byte    rank;
-    private String  title;
+    private Byte rank;
+    private String title;
     private String keyword;
-    private String  content;
+    private String content;
     private Timestamp modtime;
     private String url;
 

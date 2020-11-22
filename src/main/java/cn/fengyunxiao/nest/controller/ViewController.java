@@ -4,75 +4,73 @@ import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.entity.Blog;
 import cn.fengyunxiao.nest.service.BlogService;
 import cn.fengyunxiao.nest.service.IpService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.sql.Timestamp;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 public class ViewController {
+    @Autowired
     private IpService ipService;
+    @Autowired
     private BlogService blogService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ViewController.class);
-
-    @Autowired
-    public void setIpService(IpService ipService) {
-        this.ipService = ipService;
-    }
-    @Autowired
-    public void setBlogService(BlogService blogService) {
-        this.blogService = blogService;
+    @RequestMapping({ "/index.html", "/", "", "/index", "index.htm", "index.php" })
+    public String index(final HttpServletRequest request, final ModelMap map) {
+        this.ipService.addIp(request);
+        map.put("ipCount", Config.ipCount);
+        map.put("allpage", this.ipService.getAllPage());
+        map.put("perpage", 5);
+        return "index";
     }
 
-    @RequestMapping({"/index.html","/", ""})
-    public String index() { return "index"; }
+    @RequestMapping({ "/chat" })
+    public String chat() {
+        return "pages/chat";
+    }
 
-    @RequestMapping("/chat")
-    public String chat() { return "pages/chat"; }
-
-    @RequestMapping("/falls")
-    public String falls(ModelMap map) {
-        map.put("prefix", Config.OSS_URL_PREFIX);
+    @RequestMapping({ "/falls" })
+    public String falls(final ModelMap map) {
+        map.put("prefix", Config.ossUrlPrefix);
         return "pages/falls";
     }
 
-    @RequestMapping("/timeline")
-    public String timeline() { return "pages/timeline"; }
-
-    @GetMapping("/ip")
-    public String ip(ModelMap map) {
-        map.put("ipCount", Config.ipCount);
-        map.put("allpage", ipService.getAllPage());
-        return "pages/ip";
+    @RequestMapping({ "/falls2" })
+    public String falls2(final ModelMap map) {
+        map.put("prefix", Config.ossUrlPrefix);
+        return "pages/falls2";
     }
 
-    @RequestMapping("/chart")
-    public String chart() { return "pages/chart"; }
+    @RequestMapping({ "/timeline" })
+    public String timeline() {
+        return "pages/timeline";
+    }
 
-    @RequestMapping("/blogs")
-    public String blogs(ModelMap map, String key, Integer page) {
+    @RequestMapping({ "/chart" })
+    public String chart() {
+        return "pages/chart";
+    }
+
+    @RequestMapping({ "/blogs" })
+    public String blogs(final ModelMap map, String key, Integer page) {
         if (page == null || page < 1) {
             page = 1;
         }
-        if (key!=null && key.trim().isEmpty()) {
+        if (key != null && key.trim().isEmpty()) {
             key = null;
         }
-
-        List<Blog> blogs = blogService.search(key, page);
-        List<Blog> rands = blogService.rand(5);
-        int total = blogService.count(key, blogs.size());
-
-        int per = Config.PAGE_NUMBER;
-        int allpage =  total % per == 0 ? total / per : total / per + 1;
-        if (allpage < 1) { allpage = 1; }
-
+        final List<Blog> blogs = this.blogService.search(key, page);
+        final List<Blog> rands = this.blogService.rand(5);
+        final int total = this.blogService.count(key, blogs.size());
+        final int per = Config.pageNumber;
+        int allpage = (total % per == 0) ? (total / per) : (total / per + 1);
+        if (allpage < 1) {
+            allpage = 1;
+        }
         map.put("key", key);
         map.put("page", page);
         map.put("allpage", allpage);
@@ -81,21 +79,13 @@ public class ViewController {
         return "pages/blogs";
     }
 
-    @RequestMapping("/blog/{bid}")
-    public String blog(ModelMap map,@PathVariable("bid") Integer bid) {
-        Blog blog = blogService.getBlogEsc(bid);
-        if (blog == null) {
-            blog = new Blog();
-            blog.setBid(0);
-            blog.setTitle("没有该标题");
-            blog.setContent("没有该内容");
-            blog.setKeyword("没有关键字");
-            blog.setUrl("");
-            blog.setRank((byte)(0));
-            blog.setModtime(new Timestamp(System.currentTimeMillis()));
+    @RequestMapping({ "/blog/{bid}" })
+    public String blog(final ModelMap map, @PathVariable("bid") Integer bid) {
+        if (bid == null || bid < 1) {
+            bid = 1;
         }
-
-        List<Blog> rands = blogService.rand(5);
+        final Blog blog = this.blogService.getBlogEsc(bid);
+        final List<Blog> rands = this.blogService.rand(5);
         map.put("bid", bid);
         map.put("blog", blog);
         map.put("rands", rands);

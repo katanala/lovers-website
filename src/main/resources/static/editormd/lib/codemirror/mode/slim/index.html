@@ -18,24 +18,26 @@
 <script src="../ruby/ruby.js"></script>
 <script src="../markdown/markdown.js"></script>
 <script src="slim.js"></script>
-<style>.CodeMirror {background: #f8f8f8;}</style>
+<style>.CodeMirror {
+    background: #f8f8f8;
+}</style>
 <div id=nav>
-  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
+    <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
-  <ul>
-    <li><a href="../../index.html">Home</a>
-    <li><a href="../../doc/manual.html">Manual</a>
-    <li><a href="https://github.com/codemirror/codemirror">Code</a>
-  </ul>
-  <ul>
-    <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="#">SLIM</a>
-  </ul>
+    <ul>
+        <li><a href="../../index.html">Home</a>
+        <li><a href="../../doc/manual.html">Manual</a>
+        <li><a href="https://github.com/codemirror/codemirror">Code</a>
+    </ul>
+    <ul>
+        <li><a href="../index.html">Language modes</a>
+        <li><a class=active href="#">SLIM</a>
+    </ul>
 </div>
 
 <article>
-  <h2>SLIM mode</h2>
-  <form><textarea id="code" name="code">
+    <h2>SLIM mode</h2>
+    <form><textarea id="code" name="code">
 body
   table
     - for user in users
@@ -56,7 +58,7 @@ h2 [ id = "tagline" ] = page_tagline
   second line
 /! html comment
    second line
-<!-- html comment -->
+        <!-- html comment -->
 <a href="#{'hello' if set}">link</a>
 a.slim href="work" disabled=false running==:atom Text <b>bold</b>
 .clazz data-id="test" == 'hello' unless quark
@@ -72,25 +74,25 @@ a.slim href="work" disabled=false running==:atom Text <b>bold</b>
 .third class=:text,:symbol
 
   </textarea></form>
-  <script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-      lineNumbers: true,
-      theme: "ambiance",
-      mode: "application/x-slim"
-    });
-    $('.CodeMirror').resizable({
-      resize: function() {
-        editor.setSize($(this).width(), $(this).height());
-        //editor.refresh();
-      }
-    });
-  </script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers: true,
+            theme: "ambiance",
+            mode: "application/x-slim"
+        });
+        $('.CodeMirror').resizable({
+            resize: function () {
+                editor.setSize($(this).width(), $(this).height());
+                //editor.refresh();
+            }
+        });
+    </script>
 
-  <p><strong>MIME types defined:</strong> <code>application/x-slim</code>.</p>
+    <p><strong>MIME types defined:</strong> <code>application/x-slim</code>.</p>
 
-  <p>
-    <strong>Parsing/Highlighting Tests:</strong>
-    <a href="../../test/index.html#slim_*">normal</a>,
-    <a href="../../test/index.html#verbose,slim_*">verbose</a>.
-  </p>
+    <p>
+        <strong>Parsing/Highlighting Tests:</strong>
+        <a href="../../test/index.html#slim_*">normal</a>,
+        <a href="../../test/index.html#verbose,slim_*">verbose</a>.
+    </p>
 </article>

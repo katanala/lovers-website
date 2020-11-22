@@ -13,22 +13,22 @@
 <script src="../../mode/smarty/smarty.js"></script>
 <script src="../../mode/smartymixed/smartymixed.js"></script>
 <div id=nav>
-  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
+    <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
-  <ul>
-    <li><a href="../../index.html">Home</a>
-    <li><a href="../../doc/manual.html">Manual</a>
-    <li><a href="https://github.com/codemirror/codemirror">Code</a>
-  </ul>
-  <ul>
-    <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="#">Smarty mixed</a>
-  </ul>
+    <ul>
+        <li><a href="../../index.html">Home</a>
+        <li><a href="../../doc/manual.html">Manual</a>
+        <li><a href="https://github.com/codemirror/codemirror">Code</a>
+    </ul>
+    <ul>
+        <li><a href="../index.html">Language modes</a>
+        <li><a class=active href="#">Smarty mixed</a>
+    </ul>
 </div>
 
 <article>
-<h2>Smarty mixed mode</h2>
-<form><textarea id="code" name="code">
+    <h2>Smarty mixed mode</h2>
+    <form><textarea id="code" name="code">
 {**
 * @brief Smarty mixed mode
 * @author Ruslan Osmanov
@@ -45,21 +45,24 @@
   {literal}
   {literal} is just an HTML text.
   <script type="text/javascript">//<![CDATA[
-    var a = {$just_a_normal_js_object : "value"};
-    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
-      mode           : "smartymixed",
-      tabSize        : 2,
-      indentUnit     : 2,
-      indentWithTabs : false,
-      lineNumbers    : true,
-      smartyVersion  : 3
-    });
-    // ]]>
+  var a = {$just_a_normal_js_object: "value"};
+  var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: "smartymixed",
+      tabSize: 2,
+      indentUnit: 2,
+      indentWithTabs: false,
+      lineNumbers: true,
+      smartyVersion: 3
+  });
+  // ]]>
   </script>
   <style>
-    /* CSS content 
+    /* CSS content
     {$no_smarty} */
-    .some-class { font-weight: bolder; color: "orange"; }
+    .some-class {
+        font-weight: bolder;
+        color: "orange";
+    }
   </style>
   {/literal}
 
@@ -89,26 +92,26 @@
     {/function}
   {/if}
   </body>
-  <!-- R.O. -->
+<!-- R.O. -->
 </html>
 </textarea></form>
 
     <script type="text/javascript">
-      var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
-        mode           : "smartymixed",
-        tabSize        : 2,
-        indentUnit     : 2,
-        indentWithTabs : false,
-        lineNumbers    : true,
-        smartyVersion  : 3,
-        matchBrackets  : true,
-      });
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+            mode: "smartymixed",
+            tabSize: 2,
+            indentUnit: 2,
+            indentWithTabs: false,
+            lineNumbers: true,
+            smartyVersion: 3,
+            matchBrackets: true,
+        });
     </script>
 
     <p>The Smarty mixed mode depends on the Smarty and HTML mixed modes. HTML
-    mixed mode itself depends on XML, JavaScript, and CSS modes.</p>
+        mixed mode itself depends on XML, JavaScript, and CSS modes.</p>
 
     <p>It takes the same options, as Smarty and HTML mixed modes.</p>
 
     <p><strong>MIME types defined:</strong> <code>text/x-smarty</code>.</p>
-  </article>
+</article>

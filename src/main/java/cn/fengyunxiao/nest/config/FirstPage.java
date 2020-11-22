@@ -1,200 +1,249 @@
 package cn.fengyunxiao.nest.config;
 
-import java.sql.SQLOutput;
+import cn.fengyunxiao.nest.entity.Link;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 /**
  * 首页显示的信息，放到 servletContext 里进行缓存
  */
 public class FirstPage {
-	// 网站显示的信息
-	private String titlePrimary = Config.FIRST_PAGE_TITLE_PRIMARY;
-	private String titleSecondary = Config.FIRST_PAGE_TITLE_SECONDARY;
-	private String timeLove = Config.FIRST_PAGE_TIME_LOVE;
-	private String contactQQ = Config.FIRST_PAGE_CONTACT_QQ;
-	private String copyRight = Config.FIRST_PAGE_COPY_RIGHT;
-	private String adminMessage = Config.FIRST_PAGE_ADMIN_MESSAGE;
-	private String keywords = Config.FIRST_PAGE_KEYWORDS;
-	private String description = Config.FIRST_PAGE_KEYWORDS;
-	// js,css 缓存时间戳
-	private String timeStampHtml = Config.FIRST_PAGE_TIME_STAMP_HTML;
-	// cdn 地址
-	private String cdnBootstrapCss = Config.CDN_BOOTSTRAP_CSS;
-	private String cdnBootstrapJs = Config.CDN_BOOTSTRAP_JS;
-	private String cdnMuiCss = Config.CDN_MUI_CSS;
-	private String cdnMuiJs = Config.CDN_MUI_JS;
-	private String cdnJqueryJs = Config.CDN_JQUERY_JS;
+    private String titlePrimary;
+    private String titleSecondary;
+    private String timeLove;
+    private String contactQQ;
+    private String copyRight;
+    private String adminMessage;
+    private String keywords;
+    private String description;
+    private String timeStampHtml;
+    private String cdnBootstrapCss;
+    private String cdnBootstrapJs;
+    private String cdnMuiCss;
+    private String cdnMuiJs;
+    private String cdnJqueryJs;
+    private String cdnXssJs;
+    private String cdnLazyloadJs;
+    private String cdnChartJs;
+    private int currencyYear;
+    private int lovePeriodYears;
+    private int lovePeriodMonths;
+    private int lovePeriodDays;
+    private int loveTotalDays;
+    private List<Link> links;
 
-	// 时间信息
-	private int    currencyYear;        // 今年是哪年，copyright中更新使用
-	private int    lovePeriodYears;    // 相爱了 多少年，多少月，多少日
-	private int    lovePeriodMonths;
-	private int    lovePeriodDays;
-	private int    loveTotalDays;       // 相爱总天数
+    public FirstPage(final List<Link> links) {
+        this.titlePrimary = Config.firstTitlePrimary;
+        this.titleSecondary = Config.firstTitleSecondary;
+        this.timeLove = Config.firstTimeLove;
+        this.contactQQ = Config.firstContactQQ;
+        this.copyRight = Config.firstCopyRight;
+        this.adminMessage = Config.firstAdminMessage;
+        this.keywords = Config.firstKeywords;
+        this.description = Config.firstKeywords;
+        this.timeStampHtml = Config.firstTimeStampHtml;
+        this.cdnBootstrapCss = Config.cdnBootstrapCss;
+        this.cdnBootstrapJs = Config.cdnBootstrapJs;
+        this.cdnMuiCss = Config.cdnMuiCss;
+        this.cdnMuiJs = Config.cdnMuiJs;
+        this.cdnJqueryJs = Config.cdnJqueryJs;
+        this.cdnXssJs = Config.cdnXssJs;
+        this.cdnLazyloadJs = Config.cdnLazyloadJs;
+        this.cdnChartJs = Config.cdnChartJs;
+        final LocalDate today = LocalDate.now();
+        final LocalDate original = LocalDate.of(Config.firstLoveYear, Config.firstLoveMonth, Config.firstLoveDay);
+        final Period period = Period.between(original, today);
+        this.lovePeriodYears = period.getYears();
+        this.lovePeriodMonths = period.getMonths();
+        this.lovePeriodDays = period.getDays();
+        this.loveTotalDays = (int)ChronoUnit.DAYS.between(original, today);
+        this.currencyYear = today.getYear();
+        this.links = links;
+    }
 
-	public FirstPage() {
-		LocalDate today = LocalDate.now();
-		LocalDate original = LocalDate.of(Config.TIME_LOVE_YEAR, Config.TIME_LOVE_MONTH, Config.TIME_LOVE_DAY);
-		Period period = Period.between(original, today);
+    public String getCdnMuiCss() {
+        return this.cdnMuiCss;
+    }
 
-		lovePeriodYears = period.getYears();
-		lovePeriodMonths = period.getMonths();
-		lovePeriodDays = period.getDays();
-		loveTotalDays = (int) ChronoUnit.DAYS.between(original, today);
-		currencyYear = today.getYear();
-	}
+    public void setCdnMuiCss(final String cdnMuiCss) {
+        this.cdnMuiCss = cdnMuiCss;
+    }
 
-	public String getCdnMuiCss() {
-		return cdnMuiCss;
-	}
+    public String getCdnMuiJs() {
+        return this.cdnMuiJs;
+    }
 
-	public void setCdnMuiCss(String cdnMuiCss) {
-		this.cdnMuiCss = cdnMuiCss;
-	}
+    public void setCdnMuiJs(final String cdnMuiJs) {
+        this.cdnMuiJs = cdnMuiJs;
+    }
 
-	public String getCdnMuiJs() {
-		return cdnMuiJs;
-	}
+    public String getCdnBootstrapCss() {
+        return this.cdnBootstrapCss;
+    }
 
-	public void setCdnMuiJs(String cdnMuiJs) {
-		this.cdnMuiJs = cdnMuiJs;
-	}
+    public void setCdnBootstrapCss(final String cdnBootstrapCss) {
+        this.cdnBootstrapCss = cdnBootstrapCss;
+    }
 
-	public String getCdnBootstrapCss() {
-		return cdnBootstrapCss;
-	}
+    public String getCdnBootstrapJs() {
+        return this.cdnBootstrapJs;
+    }
 
-	public void setCdnBootstrapCss(String cdnBootstrapCss) {
-		this.cdnBootstrapCss = cdnBootstrapCss;
-	}
+    public void setCdnBootstrapJs(final String cdnBootstrapJs) {
+        this.cdnBootstrapJs = cdnBootstrapJs;
+    }
 
-	public String getCdnBootstrapJs() {
-		return cdnBootstrapJs;
-	}
+    public String getCdnJqueryJs() {
+        return this.cdnJqueryJs;
+    }
 
-	public void setCdnBootstrapJs(String cdnBootstrapJs) {
-		this.cdnBootstrapJs = cdnBootstrapJs;
-	}
+    public void setCdnJqueryJs(final String cdnJqueryJs) {
+        this.cdnJqueryJs = cdnJqueryJs;
+    }
 
-	public String getCdnJqueryJs() {
-		return cdnJqueryJs;
-	}
+    public String getTimeStampHtml() {
+        return this.timeStampHtml;
+    }
 
-	public void setCdnJqueryJs(String cdnJqueryJs) {
-		this.cdnJqueryJs = cdnJqueryJs;
-	}
+    public void setTimeStampHtml(final String timeStampHtml) {
+        this.timeStampHtml = timeStampHtml;
+    }
 
-	public String getTimeStampHtml() {
-		return timeStampHtml;
-	}
+    public int getCurrencyYear() {
+        return this.currencyYear;
+    }
 
-	public void setTimeStampHtml(String timeStampHtml) {
-		this.timeStampHtml = timeStampHtml;
-	}
+    public void setCurrencyYear(final int currencyYear) {
+        this.currencyYear = currencyYear;
+    }
 
-	public int getCurrencyYear() {
-		return currencyYear;
-	}
+    public int getLovePeriodYears() {
+        return this.lovePeriodYears;
+    }
 
-	public void setCurrencyYear(int currencyYear) {
-		this.currencyYear = currencyYear;
-	}
+    public void setLovePeriodYears(final int lovePeriodYears) {
+        this.lovePeriodYears = lovePeriodYears;
+    }
 
-	public int getLovePeriodYears() {
-		return lovePeriodYears;
-	}
+    public int getLovePeriodMonths() {
+        return this.lovePeriodMonths;
+    }
 
-	public void setLovePeriodYears(int lovePeriodYears) {
-		this.lovePeriodYears = lovePeriodYears;
-	}
+    public void setLovePeriodMonths(final int lovePeriodMonths) {
+        this.lovePeriodMonths = lovePeriodMonths;
+    }
 
-	public int getLovePeriodMonths() {
-		return lovePeriodMonths;
-	}
+    public int getLovePeriodDays() {
+        return this.lovePeriodDays;
+    }
 
-	public void setLovePeriodMonths(int lovePeriodMonths) {
-		this.lovePeriodMonths = lovePeriodMonths;
-	}
+    public void setLovePeriodDays(final int lovePeriodDays) {
+        this.lovePeriodDays = lovePeriodDays;
+    }
 
-	public int getLovePeriodDays() {
-		return lovePeriodDays;
-	}
+    public int getLoveTotalDays() {
+        return this.loveTotalDays;
+    }
 
-	public void setLovePeriodDays(int lovePeriodDays) {
-		this.lovePeriodDays = lovePeriodDays;
-	}
+    public void setLoveTotalDays(final int loveTotalDays) {
+        this.loveTotalDays = loveTotalDays;
+    }
 
-	public int getLoveTotalDays() {
-		return loveTotalDays;
-	}
+    public String getTitlePrimary() {
+        return this.titlePrimary;
+    }
 
-	public void setLoveTotalDays(int loveTotalDays) {
-		this.loveTotalDays = loveTotalDays;
-	}
+    public void setTitlePrimary(final String titlePrimary) {
+        this.titlePrimary = titlePrimary;
+    }
 
-	public String getTitlePrimary() {
-		return titlePrimary;
-	}
+    public String getTitleSecondary() {
+        return this.titleSecondary;
+    }
 
-	public void setTitlePrimary(String titlePrimary) {
-		this.titlePrimary = titlePrimary;
-	}
+    public void setTitleSecondary(final String titleSecondary) {
+        this.titleSecondary = titleSecondary;
+    }
 
-	public String getTitleSecondary() {
-		return titleSecondary;
-	}
+    public String getTimeLove() {
+        return this.timeLove;
+    }
 
-	public void setTitleSecondary(String titleSecondary) {
-		this.titleSecondary = titleSecondary;
-	}
+    public void setTimeLove(final String timeLove) {
+        this.timeLove = timeLove;
+    }
 
-	public String getTimeLove() {
-		return timeLove;
-	}
+    public String getContactQQ() {
+        return this.contactQQ;
+    }
 
-	public void setTimeLove(String timeLove) {
-		this.timeLove = timeLove;
-	}
+    public void setContactQQ(final String contactQQ) {
+        this.contactQQ = contactQQ;
+    }
 
-	public String getContactQQ() {
-		return contactQQ;
-	}
+    public String getCopyRight() {
+        return this.copyRight;
+    }
 
-	public void setContactQQ(String contactQQ) {
-		this.contactQQ = contactQQ;
-	}
+    public void setCopyRight(final String copyRight) {
+        this.copyRight = copyRight;
+    }
 
-	public String getCopyRight() {
-		return copyRight;
-	}
+    public String getAdminMessage() {
+        return this.adminMessage;
+    }
 
-	public void setCopyRight(String copyRight) {
-		this.copyRight = copyRight;
-	}
+    public void setAdminMessage(final String adminMessage) {
+        this.adminMessage = adminMessage;
+    }
 
-	public String getAdminMessage() {
-		return adminMessage;
-	}
+    public String getKeywords() {
+        return this.keywords;
+    }
 
-	public void setAdminMessage(String adminMessage) {
-		this.adminMessage = adminMessage;
-	}
+    public void setKeywords(final String keywords) {
+        this.keywords = keywords;
+    }
 
-	public String getKeywords() {
-		return keywords;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
+    public void setDescription(final String description) {
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public List<Link> getLinks() {
+        return this.links;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setLinks(final List<Link> links) {
+        this.links = links;
+    }
+
+    public String getCdnLazyloadJs() {
+        return this.cdnLazyloadJs;
+    }
+
+    public void setCdnLazyloadJs(final String cdnLazyloadJs) {
+        this.cdnLazyloadJs = cdnLazyloadJs;
+    }
+
+    public String getCdnChartJs() {
+        return this.cdnChartJs;
+    }
+
+    public void setCdnChartJs(final String cdnChartJs) {
+        this.cdnChartJs = cdnChartJs;
+    }
+
+    public String getCdnXssJs() {
+        return this.cdnXssJs;
+    }
+
+    public void setCdnXssJs(final String cdnXssJs) {
+        this.cdnXssJs = cdnXssJs;
+    }
 }
