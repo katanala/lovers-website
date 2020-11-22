@@ -6,12 +6,13 @@ http 地址（address of http ）：http://www.fengyunxiao.cn
 https地址（address of https）：https://www.fengyunxiao.cn
 
 
-
 目标（goal）：部署简单，安全高效，只需修改配置，即可搭建自己的情侣网站，属于你们的小窝。
 
-语言（language） ：java（jdk1.8）
+语言（language） ：java（jdk11）
 
 数据库（database）：mysql 8
+
+缓存redis（cache redis）：redis5
 
 框架（framework）： SpringBoot2，SpringMVC，Mybatis，Freemarker，Websocket。
 
@@ -33,12 +34,13 @@ https地址（address of https）：https://www.fengyunxiao.cn
 
 ### 部署说明
 
+数据库：nest.sql，同时修改 application.yml 中的配置
 
-数据库sql：nest.sql
+redis：安装好以后，同时修改 application.yml 中的配置
 
 密码、密钥等配置：nest.sql 中的 install 表
 
-数据库、邮箱等配置：src\main\resources\application.yml
+数据库、邮箱等配置：application.yml
 
 ---
 
@@ -57,6 +59,6 @@ https地址（address of https）：https://www.fengyunxiao.cn
 
 问：如何使用自己的域名SSL证书？
 
-答：需要将 src\main\resources\www.fengyunxiao.cn.jks 换成自己域名的SSL证书，
-同时修改 src\main\resources\application.yml 中的 server: ssl: key-* 的参数值
+答：需要将 www.fengyunxiao.cn.jks 换成自己域名的SSL证书，
+同时修改 application.yml 中的 server 部分
 
