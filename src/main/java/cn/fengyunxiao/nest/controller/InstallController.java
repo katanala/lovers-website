@@ -1,5 +1,6 @@
 package cn.fengyunxiao.nest.controller;
 
+import cn.fengyunxiao.nest.config.Config;
 import cn.fengyunxiao.nest.config.FirstPage;
 import cn.fengyunxiao.nest.config.JsonResult;
 import cn.fengyunxiao.nest.entity.Link;
@@ -33,8 +34,8 @@ public class InstallController {
             return result.error(-1, "sign error");
         }
         this.installService.initConfig();
-        final List<Link> links = this.linkService.getLink();
-        request.getServletContext().setAttribute("firstPage", new FirstPage(links));
+        List<Link> links = this.linkService.getLink();
+        request.getServletContext().setAttribute(Config.servletFirstpage, new FirstPage(links));
         this.stringRedisTemplate.delete("*");
         return result.ok("", "ok");
     }
