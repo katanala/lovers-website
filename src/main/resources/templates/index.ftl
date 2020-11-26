@@ -171,7 +171,7 @@
     <div id="message" class="container">
         <h1 class="projects-header">我要留言</h1>
         <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-4 mb-3">
                 <div id="tags">
                     <a class="tagc1">弱水三千</a>
                     <a class="tagc2">药石无医</a>
@@ -190,7 +190,7 @@
                     <a class="tagc3">晨宝宝</a>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-5">
+            <div class="col-xs-12 col-md-5 mb-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">内容</span>
@@ -213,12 +213,10 @@
                     </span>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-3">
-                <div class="text-center pt-3">
-                    <video autoplay loop width="180px">
-                        <source src="image/heart.webm" type="video/mp4">
-                        <img data-original="image/heart.jpg" width="180px" title="你的浏览器不支持播放视频">
-                    </video>
+            <div class="col-xs-12 col-md-3 mb-3">
+                <div class="text-center mt-2">
+                    <h5 class="gzh-title">关注公众号联系我</h5>
+                    <img class="gzh-img" src="https://static.fengyunxiao.cn/nest/photos/gongzhonghao.jpg" alt="公众号：aiaichaquan">
                 </div>
             </div>
         </div>

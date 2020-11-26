@@ -5,15 +5,10 @@
     margin-bottom: 0;
 }
 
-.main {
-    padding-top: 3.5rem;
-}
+.main {padding-top: 3.5rem;}
 
 /* 表格分红背景色 */
-.table-pink {
-    margin-bottom: 3rem;
-    background-color: #FCC;
-}
+.table-pink {margin-bottom: 3rem;background-color: #FCC;}
 
 .table thead th {
     border-bottom: #F55;

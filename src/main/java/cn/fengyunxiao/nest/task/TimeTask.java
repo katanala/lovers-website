@@ -13,7 +13,6 @@ import java.util.TimerTask;
 @Component
 public class TimeTask {
     private static final Logger logger = LoggerFactory.getLogger(TimeTask.class);
-    //private ServletContext servletContext;
     @Autowired private IpService ipService;
 
     @Async

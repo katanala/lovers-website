@@ -12,11 +12,13 @@ https地址（address of https）：https://www.fengyunxiao.cn
 
 数据库（database）：mysql 8
 
-缓存redis（cache redis）：redis5
+缓存技术（cache redis）：redis5
 
-框架（framework）： SpringBoot2，SpringMVC，Mybatis，Freemarker，Websocket。
+框架技术（framework）： SpringBoot2.3，Mybatis，Freemarker，Websocket
 
-集成开发环境（IDE）：IDEA
+分布式存储：阿里云 OSS
+
+集成开发环境（IDE）：IntelliJ IDEA
 
 模块（modular）：聊天（chat），博客（blog），留言（message），相册（album），故事（story），ip 统计（ip statistics），邮件通知（mail notification）....
 
@@ -62,3 +64,8 @@ redis：安装好以后，同时修改 application.yml 中的配置
 答：需要将 www.fengyunxiao.cn.jks 换成自己域名的SSL证书，
 同时修改 application.yml 中的 server 部分
 
+### 联系
+
+> 扫码关注微信公众号联系我
+
+![扫码关注微信公众号联系我](https://fengyunxiao.oss-cn-shanghai.aliyuncs.com/nest/photos/gongzhonghao.jpg)

@@ -32,6 +32,10 @@
 #tags a.tagc4 {background: #00CC33;color: #fff;}
 #tags a:hover {color: #fff;background: #0099ff;}
 
+/* 公众号标题 */
+.gzh-title {color: #ff2222;font-weight: bold;}
+.gzh-img {width: 180px;border-radius: 12px;}
+
 /* 聊天回复框 */
 .modal-footer-chat {height: 3.6rem;}
 #msg-table {display: none;position: absolute;height: 3.6rem;left: 13%;
